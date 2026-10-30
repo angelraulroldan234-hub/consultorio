@@ -2,7 +2,8 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#123b31">
 <title>Consultorio Jurídico de Ángel Raúl Roldán</title>
 <style>
 :root{--green:#123b31;--green2:#176b51;--green3:#0b2620;--mint:#e0f2e9;--gold:#c9a86a;--gold2:#e4cd98;--ink:#20312c;--muted:#5d6c66;--paper:#f6f8f5;--line:#dce5df;--white:#fff;--warn:#fff3dc;--red:#8b3d35;--shadow:0 18px 55px rgba(17,54,43,.10)}
@@ -34,7 +35,7 @@ svg.i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stro
 .sidebar,.maincard{background:var(--white);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow)}
 .sidebar{padding:20px;height:max-content;position:sticky;top:18px}
 .sidehead{font-size:11px;color:var(--muted);letter-spacing:1.4px;font-weight:800;margin:4px 0 14px}
-.steps{display:grid;gap:6px}
+.steps{display:grid;gap:6px;position:relative}
 .stepnav{display:flex;gap:11px;align-items:center;padding:10px;border-radius:12px;color:#64736d;font-size:13px;transition:background .25s,color .25s,transform .2s;border:0;background:transparent;width:100%;text-align:left;cursor:default}
 .stepnav:disabled,.stepnav[aria-disabled=true]{opacity:1}
 .stepnav[data-go="1"]{cursor:pointer;color:var(--green)}.stepnav[data-go="1"]:hover{background:#f2f7f3;transform:translateX(3px)}
@@ -213,9 +214,23 @@ details.dd textarea{min-height:140px;margin-top:8px;font-size:13px}
 .toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%) translateY(20px);background:var(--green);color:#fff;padding:12px 18px;border-radius:12px;font-size:13px;box-shadow:var(--shadow);opacity:0;transition:.3s;z-index:60;border-left:4px solid var(--gold);pointer-events:none;max-width:90vw}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
+.actions{padding-bottom:max(14px,env(safe-area-inset-bottom))}
+.toast{bottom:calc(88px + env(safe-area-inset-bottom))}
+.camrow{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}
+
+/* ---------- Tablet (entre celular y computador) ---------- */
+@media(min-width:821px) and (max-width:1100px){
+ .shell{grid-template-columns:225px minmax(0,1fr);gap:18px;padding:0 16px 40px}
+ .sidebar{padding:16px}
+ .stepnav{padding:8px;font-size:12.5px}
+ .hero .txt{max-width:calc(100% - 210px)}
+ .herodeco{transform:scale(.8);transform-origin:top right}
+ .content{padding:24px 26px 0}.actions{margin:24px -26px 0;padding-left:26px;padding-right:26px}
+}
 @media(max-width:900px){.herodeco{opacity:.25;right:-30px}}
 @media(max-width:820px){
- .shell{grid-template-columns:1fr;margin-top:16px}
+ .shell{grid-template-columns:minmax(0,1fr);margin-top:16px}
+ .sidebar,.maincard{min-width:0}
  .sidebar{position:static;padding:13px}.sidehead{margin:2px 0 8px}
  .steps{display:flex;overflow-x:auto;gap:4px;padding-bottom:6px}
  .stepnav{flex:0 0 auto;width:auto;min-width:78px;display:grid;justify-items:center;text-align:center;padding:8px 6px;gap:5px;font-size:10px}
@@ -225,7 +240,26 @@ details.dd textarea{min-height:140px;margin-top:8px;font-size:13px}
  .actions{margin:24px -22px 0;padding:12px 22px}
  .topright{display:none}
 }
-@media(max-width:520px){.grid2{grid-template-columns:1fr}.actions .right{flex:1}.actions .btn{flex:1;padding:12px 10px}.keyrow{flex-direction:column}.footer{display:block}.brand h1{font-size:15px}.logo{width:46px;height:46px}.herodeco{display:none}.progressrow{flex-wrap:wrap}.sec{padding:16px 0 2px}.dochead{flex-wrap:wrap}}
+/* En celulares los campos usan 16 px: con menos, el iPhone hace zoom al escribir. */
+@media(max-width:820px){
+ input[type=text],input[type=password],textarea,select{font-size:16px!important}
+ .report{padding:14px 15px}.doc{padding:12px 13px}
+ .modal{padding:12px}.modalcard{padding:18px;max-height:88vh}
+ .hero h2{font-size:24px}
+}
+@media(max-width:520px){.grid2{grid-template-columns:1fr;gap:0}.actions .right{flex:1}.actions .btn{flex:1;padding:12px 10px}.keyrow{flex-direction:column}.footer{display:block}.brand h1{font-size:15px}.logo{width:46px;height:46px}.herodeco{display:none}.progressrow{flex-wrap:wrap}.sec{padding:16px 0 2px}.dochead{flex-wrap:wrap}.titlerow h3{font-size:21px}.stepicon{width:42px;height:42px}.content{padding:20px 16px 0}.actions{margin:22px -16px 0;padding-left:16px;padding-right:16px}.shell{padding:0 12px 40px}.topbar{padding:12px 14px}.camrow .btn{flex:1}}
+/* Celulares angostos: "Anterior" y "Guardar" quedan solo con su ícono. */
+@media(max-width:420px){.actions .lbl{display:none}.actions{gap:8px}.actions .right{gap:8px}#backBtn,#saveBtn{flex:none;padding:12px 14px}}
+/* Pantallas táctiles: botones y opciones más grandes para el dedo. */
+@media(pointer:coarse){
+ input[type=text],input[type=password],textarea,select{font-size:16px!important}
+ .chip{padding:10px 15px;font-size:13px}.quick .chip{padding:8px 14px}
+ .btn.small{min-height:42px;padding:9px 14px}
+ .stepnav{min-height:46px}
+ .consent input{width:20px;height:20px}
+ details.dd summary{padding:8px 0}
+ .btn:not(:disabled):hover,.chip:hover,.stepnav[data-go="1"]:hover{transform:none}
+}
 @media (prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -274,8 +308,8 @@ details.dd textarea{min-height:140px;margin-top:8px;font-size:13px}
       <div class="bar"><span id="progressBar"></span></div>
       <section id="stage" aria-live="polite"></section>
       <div class="actions">
-        <button class="btn quiet" id="backBtn">← Anterior</button>
-        <div class="right"><button class="btn secondary" id="saveBtn">Guardar caso</button><button class="btn primary" id="nextBtn">Continuar →</button></div>
+        <button class="btn quiet" id="backBtn" aria-label="Anterior">←<span class="lbl"> Anterior</span></button>
+        <div class="right"><button class="btn secondary" id="saveBtn" aria-label="Guardar caso" data-icon="save"><span class="lbl">Guardar caso</span></button><button class="btn primary" id="nextBtn">Continuar →</button></div>
       </div>
     </div>
   </main>
@@ -317,8 +351,12 @@ const ICON={
  image:'<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/>',
  mic:'<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>',
  video:'<rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3z"/>',
- paste:'<rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4V3h6v1M9 10h6M9 14h6"/>'
+ paste:'<rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4V3h6v1M9 10h6M9 14h6"/>',
+ camera:'<path d="M3 8a2 2 0 0 1 2-2h2.5l1.5-2h6l1.5 2H19a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="3.5"/>',
+ save:'<path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7V3M8 21v-7h8v7"/>'
 };
+/* Pantalla táctil (celular o tablet): cambia textos y activa la cámara. */
+const TOUCH=window.matchMedia("(pointer:coarse)").matches;
 const ic=n=>`<svg class="i" viewBox="0 0 24 24" aria-hidden="true">${ICON[n]||""}</svg>`;
 document.querySelectorAll("[data-icon]").forEach(el=>el.insertAdjacentHTML("afterbegin",ic(el.dataset.icon)));
 
@@ -336,7 +374,7 @@ const LIB={pdf:"https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.j
 
 const blank=()=>({caseId:"",caseCode:"",names:"",story:"",goal:"",date:"",urgency:"",urgencyDetails:"",questions:[],answers:[],area:"",analysis:"",routes:"",citizenReport:"",technicalReport:"",activeReport:"citizen",analysisBase:"",reportsBase:"",docs:[],evidenceSummary:"",evidenceBase:""});
 const CASE_KEYS=Object.keys(blank());
-const state=Object.assign({step:0,maxStep:0,apiKey:"",model:"gpt-4o-mini",sttModel:"gpt-4o-mini-transcribe",endpoint:"https://api.openai.com/v1/responses",redact:true,loading:false,busyMsg:"",showPreview:false,errors:{},aiError:"",editing:{},open:{},prev:{}},blank());
+const state=Object.assign({step:0,maxStep:0,apiKey:"",model:"gpt-4o-mini",sttModel:"gpt-4o-mini-transcribe",endpoint:"https://api.openai.com/v1/responses",redact:true,loading:false,busyMsg:"",showPreview:false,errors:{},aiError:"",editing:{},open:{},prev:{},awayNote:"",recover:null},blank());
 /* Archivos originales: solo en memoria de la pestaña, nunca se guardan. */
 const FILES={};
 const clearFiles=()=>{for(const k in FILES)delete FILES[k]};
@@ -446,7 +484,18 @@ function setSave(){
 window.addEventListener("beforeunload",e=>{if((dirty&&hasContent())||Object.keys(FILES).length){if(dirty&&hasContent())autosave();if(dirty||Object.keys(FILES).length){e.preventDefault();e.returnValue=""}}});
 
 function reachedStep(d){return d.citizenReport||d.technicalReport?P.REP:d.routes||d.analysis?P.RUT:d.area?P.ANA:d.questions.length?P.AREA:d.urgency?P.Q:d.story?P.URG:P.STORY}
-const resetUI=()=>({errors:{},aiError:"",editing:{},showPreview:false,open:{},prev:{},busyMsg:""});
+const resetUI=()=>({errors:{},aiError:"",editing:{},showPreview:false,open:{},prev:{},busyMsg:"",awayNote:""});
+function loadCase(id,step){
+ const c=readCases().find(x=>x.id===id);if(!c)return false;
+ autosave();
+ const d=cleanData(c.data);
+ if(String(c.id)!==state.caseId)clearFiles();
+ Object.assign(state,blank(),d,{caseId:String(c.id)},resetUI());
+ state.maxStep=reachedStep(d);
+ state.step=Number.isInteger(step)&&step>0?Math.min(step,state.maxStep):(d.docs.length?P.DOCS:P.STORY);
+ dirty=false;savedAt="";saveFailed=false;
+ return true;
+}
 let lastFocus=null;
 function openCases(){
  $("modalIcon").innerHTML=ic("folder");
@@ -454,12 +503,7 @@ function openCases(){
  $("caseList").innerHTML=arr.length?arr.map(c=>`<div class="caseitem"><div><b>${esc(c.title)}</b><small>${esc(c.data&&c.data.area?c.data.area+" · ":"")}${c.data&&Array.isArray(c.data.docs)&&c.data.docs.length?esc(c.data.docs.length+" documento(s) · "):""}${esc(new Date(c.updatedAt).toLocaleString("es-CO",{timeZone:"America/Bogota"}))}</small></div><div class="ci-actions"><button class="btn secondary small" data-open="${esc(c.id)}">Abrir</button><button class="btn danger small" data-del="${esc(c.id)}" title="Eliminar" aria-label="Eliminar caso">${ic("trash")}</button></div></div>`).join(""):`<p class="sub">No hay casos guardados en este navegador.</p>`;
  $("caseList").querySelectorAll("[data-open]").forEach(b=>b.onclick=()=>{
   if(state.loading){toast("Espera a que termine la IA.");return}
-  const c=readCases().find(x=>x.id===b.dataset.open);if(!c)return;
-  autosave();
-  const d=cleanData(c.data);
-  if(String(c.id)!==state.caseId)clearFiles();
-  Object.assign(state,blank(),d,{caseId:String(c.id)},resetUI());
-  state.step=d.docs.length?P.DOCS:P.STORY;state.maxStep=reachedStep(d);dirty=false;savedAt="";saveFailed=false;
+  if(!loadCase(b.dataset.open))return;
   closeModal();render();toast("Caso abierto.");
  });
  $("caseList").querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{if(!confirm("¿Eliminar este caso guardado? No se puede deshacer."))return;writeCases(readCases().filter(x=>x.id!==b.dataset.del));if(state.caseId===b.dataset.del)state.caseId="";openCases()});
@@ -519,7 +563,10 @@ const waitFor=(target,ev,ms)=>new Promise((ok,ko)=>{const t=setTimeout(()=>ko(ne
 async function videoFrames(f,n=4){
  const url=URL.createObjectURL(f);const v=document.createElement("video");v.muted=true;v.preload="auto";v.playsInline=true;
  try{
-  v.src=url;await waitFor(v,"loadeddata",15000);
+  v.src=url;const ready=waitFor(v,"loadeddata",15000);
+  /* iPhone/iPad no cargan los cuadros del video hasta que se reproduce (en silencio). */
+  try{const p=v.play();if(p&&p.catch)p.catch(()=>{})}catch{}
+  await ready;try{v.pause()}catch{}
   if(!isFinite(v.duration)||!v.videoWidth)return [];
   const out=[];
   for(let k=1;k<=n;k++){
@@ -596,16 +643,22 @@ function guessLabel(d){
  return {audio:"Audio",video:"Video",imagen:"Foto o captura"}[d.kind]||"";
 }
 function newDoc(o){return Object.assign({id:newId(),name:"Documento",size:0,kind:"texto",label:"",note:"",text:"",analysis:"",alert:"",consent:false,aBase:"",pages:0,error:""},o)}
-async function addFiles(list){
+async function addFiles(list,{camera=false}={}){
  const files=[...(list||[])];if(!files.length)return;
  const room=MAX_DOCS-state.docs.length;
  if(room<=0){toast(`Máximo ${MAX_DOCS} documentos por caso.`);return}
  if(files.length>room)toast(`Solo se agregaron ${room} archivo(s): el máximo es ${MAX_DOCS} por caso.`);
- const added=files.slice(0,room).map(f=>{const d=newDoc({name:f.name,size:f.size,processing:true});FILES[d.id]=f;state.docs.push(d);return {d,f}});
+ /* Las fotos de la cámara llegan todas como "image.jpg": se les da un nombre propio. */
+ const camName=()=>`Foto ${state.docs.filter(d=>/^Foto \d+ ·/.test(d.name)).length+1} · ${hora()}.jpg`;
+ const added=files.slice(0,room).map(f=>{const d=newDoc({name:camera?camName():f.name,size:f.size,processing:true});FILES[d.id]=f;state.docs.push(d);return {d,f}});
  render();
  for(const {d,f} of added){
   try{await extractLocal(d,f)}catch(e){d.error=(e&&e.message)||"No se pudo leer el archivo."}
   d.processing=false;if(!d.label)d.label=guessLabel(d);markDirty();if(state.step===P.DOCS)render();
+ }
+ if(camera&&added[0]&&state.step===P.DOCS){
+  const card=$("card_"+added[0].d.id);if(card)card.scrollIntoView({block:"center",behavior:"smooth"});
+  toast(added[0].d.error?"No se pudo leer la foto.":"Foto agregada. Marca la autorización y pulsa «Analizar».");
  }
 }
 function addNote(){
@@ -699,7 +752,14 @@ function statusBars(){
  let h="";
  if(state.loading)h+=`<div class="notice loading" role="status"><span class="spin"></span><div><b>La IA está trabajando…</b> <span id="busyMsg">${esc(state.busyMsg||"Puede tardar hasta un minuto. No cierres la pestaña.")}</span></div><button class="btn quiet small" id="cancelAI">Cancelar</button></div>`;
  if(state.aiError)h+=notice("red","warn",`${esc(state.aiError)}${!state.apiKey.trim()?` <button class="btn secondary small" id="goKey" style="margin-left:8px">Ir a configurar la clave</button>`:""}`);
+ if(state.awayNote)h+=`<div class="notice warn" role="status">${ic("info")}<div>${esc(state.awayNote)}</div><button class="btn quiet small" id="awayOk">Entendido</button></div>`;
  return h;
+}
+function recoverNotice(){
+ const r=state.recover;if(!r)return "";
+ const exists=r.caseId&&readCases().some(c=>c.id===r.caseId);
+ return `<div class="notice red" role="alert">${ic("warn")}<div><b>La página se recargó o se cerró mientras la IA trabajaba</b> en el paso «${esc(r.label)}» (${esc(new Date(r.at).toLocaleTimeString("es-CO",{timeZone:"America/Bogota",hour:"2-digit",minute:"2-digit"}))}). Eso pasa a veces en el celular al cambiar de aplicación. Esa operación no terminó: vuelve a pegar la API key${exists?", abre el caso y repítela":" y repítela"}. Si había fotos, audios o videos sin analizar, súbelos otra vez.
+ <div class="row" style="margin-top:10px">${exists?`<button class="btn secondary small" id="recoverOpen">${ic("folder")}Abrir ese caso</button>`:""}<button class="btn quiet small" id="recoverClose">Descartar aviso</button></div></div></div>`;
 }
 function setBusy(msg){state.busyMsg=msg;const el=$("busyMsg");if(el)el.textContent=msg}
 
@@ -710,7 +770,7 @@ function docCard(d){
  const consentTxt=d.kind==="audio"?"Autorizo enviar el audio original a OpenAI para transcribirlo. La voz no se puede anonimizar.":d.kind==="video"?"Autorizo enviar el audio y algunos fotogramas del video a OpenAI. No se pueden anonimizar.":d.kind==="escaneado"?"Autorizo enviar las páginas escaneadas a OpenAI como imágenes. No se pueden anonimizar.":"Autorizo enviar la imagen original a OpenAI. No se puede anonimizar.";
  const dis=state.loading||d.processing?"disabled":"";
  const tOpen=state.open["t_"+d.id]||(d.kind==="nota"&&!d.text.trim());
- return `<div class="doc">
+ return `<div class="doc" id="card_${d.id}">
  <div class="dochead"><div class="docicon">${ic(K.icon)}</div><div class="docmeta"><b title="${esc(d.name)}">${esc(d.name)}</b><small>${K.label}${d.pages?` · ${d.pages} pág.`:""}${d.size?` · ${fmtSize(d.size)}`:""}${d.text?` · ${d.text.length.toLocaleString("es-CO")} caracteres`:""}</small></div><span class="badge ${st.c}">${st.spin?'<span class="spin"></span>':""}${st.t}</span></div>
  ${d.alert==="SÍ"?notice("red","hourglass","<b>Menciona plazos, audiencias o fechas límite.</b> Revisa el análisis y avisa hoy a tu docente asesor."):d.alert==="POSIBLE"?notice("warn","hourglass","<b>Podría haber un plazo corriendo.</b> Verifícalo con el documento original."):""}
  <div class="grid2"><div><label for="dl_${d.id}">Tipo de documento</label><select id="dl_${d.id}" data-dlabel="${d.id}"><option value="">Sin indicar</option>${DOC_TYPES.map(t=>`<option ${d.label===t?"selected":""}>${t}</option>`).join("")}</select></div><div><label for="dn_${d.id}">¿Qué es o qué prueba? (opcional)</label><input type="text" id="dn_${d.id}" data-dnote="${d.id}" value="${esc(d.note)}" placeholder="Ej. citación a descargos de octubre" autocomplete="off"></div></div>
@@ -728,9 +788,12 @@ function docCard(d){
 function buildNav(){
  $("stepNav").innerHTML=STEPS.map((s,i)=>{const ok=i!==state.step&&i<=state.maxStep;return `<button type="button" class="stepnav ${i===state.step?"active":i<state.step?"done":""}" data-step="${i}" data-go="${ok?1:0}" ${i===state.step?'aria-current="step"':""} ${ok?"":'aria-disabled="true" tabindex="-1"'}><span class="num">${i<state.step?ic("check"):ic(s.i)}</span><span>${s.n}</span></button>`}).join("");
  $("stepNav").querySelectorAll("[data-step]").forEach(el=>el.onclick=()=>{if(el.dataset.go==="1"&&!state.loading)goTo(+el.dataset.step,{quiet:true})});
+ /* En pantallas angostas los pasos van en una tira horizontal: se centra el paso actual. */
+ const nav=$("stepNav"),act=nav.querySelector(".active");
+ if(act&&nav.scrollWidth>nav.clientWidth)nav.scrollTo({left:act.offsetLeft-(nav.clientWidth-act.offsetWidth)/2,behavior:"smooth"});
 }
 function goTo(n,{quiet=false}={}){
- state.errors={};state.aiError="";state.step=n;state.maxStep=Math.max(state.maxStep,n);
+ state.errors={};state.aiError="";state.awayNote="";state.step=n;state.maxStep=Math.max(state.maxStep,n);
  if(!quiet)strike();
  autosave();render();
  document.querySelector(".maincard").scrollIntoView({behavior:"smooth",block:"start"});
@@ -753,8 +816,9 @@ function screen(){
   const synStale=state.evidenceSummary.trim()&&state.evidenceBase&&state.evidenceBase!==evHash();
   return `<p class="sub">Sube lo que haya aportado la persona: citaciones, resoluciones, notificaciones, correos, contratos, desprendibles, fotos, capturas, audios o videos. La IA analizará cada uno, y lo que encuentre se usará en el relato, las preguntas, el análisis y los informes. Este paso es opcional.</p>
  ${al.length?notice("red","hourglass",`<b>${al.length} documento(s) mencionan plazos, audiencias o fechas límite:</b> ${al.map(d=>esc(d.name)).join(", ")}. Revísalos y avisa hoy a tu docente asesor.`):""}
- ${sec(1,"Subir archivos",`<label class="drop" id="drop" for="fileInput" tabindex="0">${ic("upload")}<b>Arrastra los archivos aquí o haz clic para elegirlos</b><small>PDF, Word (.docx), Excel, correos (.eml), texto y chats exportados de WhatsApp, imágenes, audios (también notas de voz) y videos</small></label><input type="file" id="fileInput" multiple class="hidden" accept="${ACCEPT}">
- <div class="row" style="margin-top:10px"><button class="btn quiet small" id="addNote" ${state.loading?"disabled":""}>${ic("paste")}Pegar texto (correo, chat o mensaje)</button></div>
+ ${sec(1,"Subir archivos",`<label class="drop" id="drop" for="fileInput" tabindex="0">${ic("upload")}<b>${TOUCH?"Toca aquí para elegir archivos":"Arrastra los archivos aquí o haz clic para elegirlos"}</b><small>PDF, Word (.docx), Excel, correos (.eml), texto y chats exportados de WhatsApp, imágenes, audios (también notas de voz) y videos</small></label><input type="file" id="fileInput" multiple class="hidden" accept="${ACCEPT}"><input type="file" id="camInput" class="hidden" accept="image/*" capture="environment">
+ <div class="camrow">${TOUCH?`<button class="btn secondary small" id="takePhoto" ${state.loading?"disabled":""}>${ic("camera")}Tomar foto de un documento</button>`:""}<button class="btn quiet small" id="addNote" ${state.loading?"disabled":""}>${ic("paste")}Pegar texto (correo, chat o mensaje)</button></div>
+ ${TOUCH?`<div class="hint"><b>En celular o tablet:</b> toma la foto de frente, con buena luz y con todo el documento dentro del encuadre; si tiene varias páginas, toma una foto por página. Las notas de voz de WhatsApp búscalas en el administrador de archivos, o guárdalas antes desde WhatsApp con «Compartir». Mientras la IA trabaja, no cambies de aplicación.</div>`:""}
  <div class="hint">Los archivos originales no se guardan: solo quedan el texto extraído y los análisis. Si cierras la página, para volver a procesar una imagen, un audio o un video tendrás que subirlo de nuevo. Máximo ${MAX_DOCS} documentos por caso.</div>`)}
  ${sec(2,"Protección de datos",`${field("Nombres de personas o empresas que aparecen en los documentos","names",state.names,"Ej. María Pérez, Juan Gómez, Comercializadora XYZ","text","Sepáralos con comas. Es la misma lista del relato: escríbelos antes de analizar.")}
  ${state.redact&&!nameList().length&&n?notice("warn","warn","Aún no registras nombres. El texto de los documentos irá a la IA con los nombres reales."):""}
@@ -831,7 +895,7 @@ function render(){
  $("saveBtn").classList.toggle("hidden",state.step===0);
  const st=STEPS[state.step];
  const stage=$("stage");
- stage.innerHTML=`<div class="titlerow"><div class="stepicon">${ic(st.i)}</div><h3>${TITLES[state.step]}</h3></div>${ctxBar()}${statusBars()}${screen()}`;
+ stage.innerHTML=`<div class="titlerow"><div class="stepicon">${ic(st.i)}</div><h3>${TITLES[state.step]}</h3></div>${recoverNotice()}${ctxBar()}${statusBars()}${screen()}`;
  if(lastRendered!==state.step){stage.classList.remove("enter");void stage.offsetWidth;stage.classList.add("enter");lastRendered=state.step}
  bind();setSave();
 }
@@ -840,6 +904,9 @@ function bind(){
  const s=state.step;
  const cancel=$("cancelAI");if(cancel)cancel.onclick=()=>ctrl&&ctrl.abort();
  const gk=$("goKey");if(gk)gk.onclick=()=>goTo(P.CFG,{quiet:true});
+ const ao=$("awayOk");if(ao)ao.onclick=()=>{state.awayNote="";render()};
+ const rc=$("recoverClose");if(rc)rc.onclick=()=>{state.recover=null;render()};
+ const ro=$("recoverOpen");if(ro)ro.onclick=()=>{const r=state.recover;state.recover=null;if(loadCase(r.caseId,r.step)){render();toast("Caso abierto. Pega la API key en el paso 1 antes de repetir la operación.")}else render()};
  qsa("[data-doc]").forEach(el=>el.addEventListener("input",()=>{state[el.dataset.doc]=el.value;markDirty()}));
  qsa("[data-docedit]").forEach(b=>b.onclick=()=>{state.editing[b.dataset.docedit]=true;render();const t=$("doc_"+b.dataset.docedit);t&&t.focus()});
  qsa("[data-docdone]").forEach(b=>b.onclick=()=>{delete state.editing[b.dataset.docdone];render()});
@@ -860,6 +927,8 @@ function bind(){
   dz.ondragenter=dz.ondragover=e=>{e.preventDefault();dz.classList.add("over")};
   dz.ondragleave=()=>dz.classList.remove("over");
   $("addNote").onclick=addNote;
+  const tp=$("takePhoto");if(tp)tp.onclick=()=>$("camInput").click();
+  $("camInput").onchange=e=>{addFiles(e.target.files,{camera:true});e.target.value=""};
   qsa("[data-dlabel]").forEach(el=>el.onchange=()=>{const d=D(el.dataset.dlabel);if(d){d.label=el.value;markDirty()}});
   qsa("[data-dnote]").forEach(el=>el.oninput=()=>{const d=D(el.dataset.dnote);if(d){d.note=el.value.slice(0,500);markDirty()}});
   qsa("[data-dtext]").forEach(el=>el.oninput=()=>{const d=D(el.dataset.dtext);if(d){d.text=el.value.slice(0,TEXT_CAP+200);markDirty()}});
@@ -977,6 +1046,7 @@ async function toWavChunks(f){
 async function transcribeFile(f,sig){
  const ext=extOf(f.name);
  if(f.size<=24*MB&&DIRECT_EXT.includes(ext)){setBusy(`Transcribiendo ${f.name}…`);return await sttCall(f,ext==="opus"?f.name.replace(/\.opus$/i,".ogg"):f.name,sig)}
+ if(TOUCH&&f.size>40*MB&&!confirm(`“${f.name}” pesa ${fmtSize(f.size)}. Procesarlo en un celular o tablet puede agotar la memoria y cerrar la página. Lo más seguro es hacerlo en el computador. ¿Intentarlo de todas formas?`))throw new Error("Transcripción aplazada: procesa este archivo en el computador o súbelo en un formato más liviano (MP3 o M4A).");
  setBusy(`Extrayendo el audio de ${f.name}…`);
  let chunks;
  try{chunks=await toWavChunks(f)}catch{throw new Error("No se pudo extraer el audio de este archivo en el navegador. Conviértelo a MP3 o MP4 y vuelve a subirlo.")}
@@ -1054,18 +1124,51 @@ function analyzeAll(){
   toast(`Análisis terminado: ${list.length-fails} de ${list.length} documento(s).${blocked?` ${blocked} quedaron pendientes de autorización o texto.`:""}`);
  },30*60000);
 }
+/* ---------- Celulares y tablets: salir de la página a mitad de una operación ---------- */
+/* Mientras la IA trabaja: la pantalla no se apaga, se recuerda si saliste a otra app, y queda una marca
+   para avisarte si el navegador recarga la página y se pierde lo que estaba en curso. */
+const BUSY_KEY="cjar_en_curso";
+let wentAway=false,wake=null;
+async function keepAwake(on){
+ try{
+  if(on&&!wake&&navigator.wakeLock&&!document.hidden){wake=await navigator.wakeLock.request("screen");wake.addEventListener("release",()=>{wake=null})}
+  else if(!on&&wake){const w=wake;wake=null;await w.release()}
+ }catch{}
+}
+function markBusy(){try{localStorage.setItem(BUSY_KEY,JSON.stringify({caseId:state.caseId,step:state.step,label:STEPS[state.step].n,at:Date.now()}))}catch{}}
+function clearBusy(){try{localStorage.removeItem(BUSY_KEY)}catch{}}
+function flushSave(){if(dirty&&hasContent())autosave()}
+document.addEventListener("visibilitychange",()=>{
+ if(document.hidden){flushSave();if(state.loading)wentAway=true;return}
+ if(state.loading){
+  keepAwake(true);
+  if(wentAway){state.awayNote="Volviste mientras la IA seguía trabajando. Si en uno o dos minutos no avanza, pulsa «Cancelar» y repite la operación.";render()}
+ }
+});
+window.addEventListener("pagehide",flushSave);
+
 async function withBusy(fn,ms=120000){
  if(state.loading)return;
- state.loading=true;state.aiError="";state.errors={};state.editing={};state.busyMsg="";
- ctrl=new AbortController();let timedOut=false;
+ state.loading=true;state.aiError="";state.errors={};state.editing={};state.busyMsg="";state.awayNote="";wentAway=document.hidden;
+ if(hasContent())saveLocal(true);
+ markBusy();keepAwake(true);
+ ctrl=new AbortController();let timedOut=false,failed=false;
  const timer=setTimeout(()=>{timedOut=true;ctrl.abort()},ms);
  render();
  try{return await fn(ctrl.signal)}
  catch(e){
-  if(e&&e.name==="AbortError"){if(timedOut)state.aiError=`La operación superó el tiempo máximo (${Math.round(ms/60000)} min). Pulsa el botón para intentarlo de nuevo.`;else toast("Operación cancelada.")}
+  failed=true;
+  if(e&&e.name==="AbortError"){if(timedOut)state.aiError=`La operación superó el tiempo máximo (${Math.round(ms/60000)} min). Pulsa el botón para intentarlo de nuevo.`;else{failed=false;toast("Operación cancelada.")}}
   else state.aiError=(e&&e.message)||"Error inesperado. Intenta de nuevo.";
   return false;
- }finally{clearTimeout(timer);ctrl=null;state.loading=false;state.busyMsg="";render();autosave()}
+ }finally{
+  clearTimeout(timer);ctrl=null;state.loading=false;state.busyMsg="";clearBusy();keepAwake(false);
+  if(wentAway){
+   if(failed&&state.aiError)state.aiError="Saliste de la página mientras la IA trabajaba y la operación no terminó. Vuelve a pulsar el botón para repetirla. Detalle: "+state.aiError;
+   else if(!failed)state.awayNote="La operación terminó mientras estabas en otra aplicación. Revisa el resultado antes de continuar.";
+  }
+  wentAway=false;render();autosave();
+ }
 }
 
 function storyFromDocs(){
@@ -1183,6 +1286,8 @@ document.addEventListener("drop",e=>{
  else if(state.loading)toast("Espera a que termine la IA para agregar archivos.");
  else toast(`Para agregar documentos, ve al paso ${P.DOCS+1}: Documentos y pruebas.`);
 });
+/* Si la página se recargó a mitad de una operación (frecuente en celulares), se avisa al abrir. */
+try{const r=JSON.parse(localStorage.getItem(BUSY_KEY)||"null");if(r&&typeof r==="object"&&Date.now()-Number(r.at)<12*3600000)state.recover={caseId:String(r.caseId||""),step:Number(r.step)||0,label:STEPS[Number(r.step)]?STEPS[Number(r.step)].n:"desconocido",at:Number(r.at)};clearBusy()}catch{clearBusy()}
 document.addEventListener("keydown",e=>{
  const open=!$("modal").classList.contains("hidden");
  if(e.key==="Escape"&&open)closeModal();
