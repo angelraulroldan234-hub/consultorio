@@ -1,0 +1,1200 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Consultorio Jurídico de Ángel Raúl Roldán</title>
+<style>
+:root{--green:#123b31;--green2:#176b51;--green3:#0b2620;--mint:#e0f2e9;--gold:#c9a86a;--gold2:#e4cd98;--ink:#20312c;--muted:#5d6c66;--paper:#f6f8f5;--line:#dce5df;--white:#fff;--warn:#fff3dc;--red:#8b3d35;--shadow:0 18px 55px rgba(17,54,43,.10)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+button,input,textarea,select{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.55}
+button:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--green2);outline-offset:2px}
+svg.i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none;vertical-align:-3px}
+
+/* ---------- Encabezado ---------- */
+.topbar{position:relative;overflow:hidden;background:linear-gradient(100deg,var(--green3),var(--green) 60%,#1a4d3f);color:#fff;padding:14px max(20px,calc((100vw - 1180px)/2));display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:3px solid var(--gold)}
+.brand{display:flex;align-items:center;gap:14px;position:relative;z-index:1}
+.logo{height:56px;width:56px;border-radius:14px;background:rgba(255,255,255,.07);border:1px solid rgba(228,205,152,.5);display:grid;place-items:center;color:var(--gold2);flex:none}
+.logo svg{width:40px;height:34px}
+.brand h1{font-family:Georgia,"Times New Roman",serif;font-size:19px;line-height:1.2;margin:0;letter-spacing:1.4px;font-weight:700}
+.brand h1 span{color:var(--gold2)}
+.brand p{margin:4px 0 0;color:#cfe3d8;font-size:12px;letter-spacing:.4px}
+.topright{position:relative;z-index:1;font-size:11px;color:#cfe3d8;text-align:right;letter-spacing:1.2px}
+
+/* Balanza animada */
+.scale .beam{transform-origin:60px 22px;transform-box:view-box;animation:sway 4.5s ease-in-out infinite}
+.scale .panL{transform-origin:20px 22px;transform-box:view-box;animation:counter 4.5s ease-in-out infinite}
+.scale .panR{transform-origin:100px 22px;transform-box:view-box;animation:counter 4.5s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}
+@keyframes counter{0%,100%{transform:rotate(6deg)}50%{transform:rotate(-6deg)}}
+
+/* ---------- Estructura ---------- */
+.shell{max-width:1180px;margin:28px auto;padding:0 20px 48px;display:grid;grid-template-columns:270px minmax(0,1fr);gap:24px}
+.sidebar,.maincard{background:var(--white);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow)}
+.sidebar{padding:20px;height:max-content;position:sticky;top:18px}
+.sidehead{font-size:11px;color:var(--muted);letter-spacing:1.4px;font-weight:800;margin:4px 0 14px}
+.steps{display:grid;gap:6px}
+.stepnav{display:flex;gap:11px;align-items:center;padding:10px;border-radius:12px;color:#64736d;font-size:13px;transition:background .25s,color .25s,transform .2s;border:0;background:transparent;width:100%;text-align:left;cursor:default}
+.stepnav:disabled,.stepnav[aria-disabled=true]{opacity:1}
+.stepnav[data-go="1"]{cursor:pointer;color:var(--green)}.stepnav[data-go="1"]:hover{background:#f2f7f3;transform:translateX(3px)}
+.stepnav .num{width:32px;height:32px;border:1px solid var(--line);border-radius:10px;display:grid;place-items:center;flex:none;transition:.25s;background:#fff}
+.stepnav .num svg.i{width:17px;height:17px}
+.stepnav.active{background:var(--mint);color:var(--green);font-weight:750}
+.stepnav.active .num{background:var(--green2);color:#fff;border-color:var(--green2);animation:pulse 2.2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(23,107,81,.45)}70%{box-shadow:0 0 0 9px rgba(23,107,81,0)}100%{box-shadow:0 0 0 0 rgba(23,107,81,0)}}
+.stepnav.done .num{background:#edf5ef;color:var(--green2);border-color:#cfe4d6}
+.privacy{margin-top:20px;padding:13px;border-radius:14px;background:#f5f8f5;border:1px solid var(--line);font-size:12px;color:var(--muted)}
+.privacy b{color:var(--green);display:flex;gap:6px;align-items:center;margin-bottom:4px}
+.sidebtns{display:grid;gap:8px;margin-top:12px}
+.sidebtns .btn{width:100%;display:flex;gap:8px;align-items:center;justify-content:center}
+
+.maincard{overflow:clip}
+.hero{position:relative;overflow:hidden;padding:30px 34px 26px;background:radial-gradient(circle at 88% 30%,#e6f3ea,transparent 50%),linear-gradient(120deg,#f5faf6,#fff);border-bottom:1px solid var(--line);min-height:190px}
+.hero .txt{position:relative;z-index:2;max-width:min(600px,calc(100% - 290px))}
+.eyebrow{color:var(--green2);font-size:11px;letter-spacing:1.5px;font-weight:850;text-transform:uppercase}
+.hero h2{font-family:Georgia,"Times New Roman",serif;font-size:clamp(24px,3vw,33px);line-height:1.18;letter-spacing:-.3px;margin:10px 0;color:var(--green)}
+.hero p{color:var(--muted);margin:0}
+.herodeco{position:absolute;right:24px;top:22px;width:250px;height:150px;z-index:1}
+.herodeco .bigscale{position:absolute;left:0;top:0;width:150px;height:125px;color:var(--green2);opacity:.9}
+.herodeco .gavelwrap{position:absolute;right:0;bottom:0;width:96px;height:96px;color:var(--green)}
+.gavelhead{transform-origin:14px 50px;transform-box:view-box}
+.gavelwrap.hit .gavelhead{animation:hit .6s cubic-bezier(.3,.7,.4,1)}
+@keyframes hit{0%{transform:rotate(0)}35%{transform:rotate(-30deg)}60%{transform:rotate(14deg)}78%{transform:rotate(6deg)}100%{transform:rotate(0)}}
+.ripple{position:absolute;right:12px;bottom:2px;width:56px;height:14px;border-radius:50%;border:2px solid var(--gold);opacity:0}
+.gavelwrap.hit .ripple{animation:ripple .6s ease-out .3s}
+@keyframes ripple{0%{opacity:.9;transform:scale(.4)}100%{opacity:0;transform:scale(1.8)}}
+
+.content{padding:28px 34px 0}
+.progressrow{display:flex;justify-content:space-between;align-items:center;gap:12px;color:var(--muted);font-size:12px;margin-bottom:9px;font-weight:600;letter-spacing:.4px}
+.progressrow .meta{display:flex;gap:14px;align-items:center;flex:none}
+.savestate{display:inline-flex;gap:6px;align-items:center;font-weight:600;letter-spacing:0}
+.savestate .dot{width:8px;height:8px;border-radius:50%;background:var(--green2)}
+.savestate.dirty{color:#8a5a12}.savestate.dirty .dot{background:var(--gold)}
+.savestate.fail{color:var(--red)}.savestate.fail .dot{background:var(--red)}
+.bar{height:7px;background:#e8eee9;border-radius:10px;overflow:hidden;margin-bottom:24px}
+.bar span{position:relative;display:block;height:100%;width:11%;background:linear-gradient(90deg,var(--green2),var(--gold));border-radius:10px;transition:width .5s cubic-bezier(.3,.7,.4,1);overflow:hidden}
+
+.enter{animation:enter .4s ease both}
+@keyframes enter{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.titlerow{display:flex;gap:14px;align-items:center;margin-bottom:6px}
+.stepicon{width:50px;height:50px;border-radius:14px;background:var(--mint);color:var(--green2);display:grid;place-items:center;flex:none;border:1px solid #cfe4d6}
+.stepicon svg.i{width:27px;height:27px}
+h3{font-family:Georgia,"Times New Roman",serif;color:var(--green);font-size:24px;line-height:1.2;margin:0}
+.sub{color:var(--muted);margin:6px 0 4px;font-size:14px}
+.legend{font-size:12px;color:var(--muted);margin:10px 0 0}
+.req{color:var(--red);font-weight:800}
+.ctxbar{display:flex;flex-wrap:wrap;gap:4px 18px;font-size:13px;color:var(--muted);margin:12px 0 0;padding:8px 12px;background:#f5f8f5;border-radius:10px}
+.ctxbar b{color:var(--green)}
+
+/* Secciones: agrupan cada paso en bloques con título */
+.sec{border-top:1px solid var(--line);padding:22px 0 2px;margin-top:22px}
+.sec:first-of-type{border-top:0;padding-top:4px;margin-top:14px}
+.sechead{display:flex;align-items:center;gap:10px;font-size:13px;letter-spacing:1.2px;text-transform:uppercase;font-weight:800;color:var(--green2)}
+.sechead:before{content:"";width:18px;height:3px;border-radius:10px;background:var(--gold);flex:none}
+.secdesc{margin:6px 0 0;font-size:13.5px;color:var(--muted)}
+.sec .sechead+label,.sec .secdesc+label,.sec .grid2 label{margin-top:12px}
+
+label{display:block;font-weight:750;font-size:13px;margin:18px 0 7px;color:#2c4138}
+.hint{font-size:12px;color:var(--muted);margin-top:6px}
+input[type=text],input[type=password],textarea,select{width:100%;border:1px solid #cfdcd3;border-radius:12px;background:#fff;padding:13px 14px;color:var(--ink);outline:none;transition:border-color .15s,box-shadow .15s}
+input:focus,textarea:focus,select:focus{border-color:#4b9275;box-shadow:0 0 0 3px #dff1e6}
+.invalid{border-color:#c46b62!important;box-shadow:0 0 0 3px #fbe5e2!important}
+.err{color:var(--red);font-size:12.5px;margin-top:7px;display:flex;gap:6px;align-items:flex-start;font-weight:600}
+.err svg.i{width:16px;height:16px;margin-top:1px}
+textarea{resize:vertical;min-height:150px}
+.keyrow{display:flex;gap:8px}.keyrow input{flex:1;min-width:0}
+.btn{border:0;border-radius:12px;padding:12px 17px;font-weight:750;transition:transform .12s,box-shadow .2s,background .2s;display:inline-flex;gap:7px;align-items:center;justify-content:center}
+.btn:not(:disabled):hover{transform:translateY(-1px)}
+.btn:not(:disabled):active{transform:translateY(1px)}
+.primary{background:var(--green2);color:#fff;box-shadow:0 6px 18px rgba(23,107,81,.25)}
+.primary:not(:disabled):hover{background:#125c45}
+.secondary{background:#edf4ef;color:var(--green);border:1px solid #d9e7de}
+.quiet{background:transparent;color:var(--muted);border:1px solid var(--line)}
+.danger{background:#fff1ef;color:var(--red);border:1px solid #f0d5d1}
+.small{font-size:12px;padding:8px 11px}
+.actions{position:sticky;bottom:0;z-index:5;display:flex;justify-content:space-between;gap:12px;margin:28px -34px 0;padding:14px 34px;background:rgba(255,255,255,.95);backdrop-filter:blur(6px);border-top:1px solid var(--line)}
+.actions .right{display:flex;gap:9px}
+.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.notice{display:flex;gap:11px;padding:14px;border-radius:12px;background:#eff7f1;border:1px solid #d6e9dc;color:#345c49;font-size:13px;margin:16px 0 0}
+.notice>div{flex:1}
+.notice.warn{background:var(--warn);border-color:#f0dfb8;color:#74551f}
+.notice.red{background:#fff1ef;border-color:#f0d5d1;color:var(--red)}
+.notice.loading{align-items:center}
+.notice .btn{margin-left:auto;flex:none}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);border-radius:20px;padding:8px 13px;background:#fff;color:#51645a;font-size:12px;transition:.15s}
+.chip:hover{border-color:#75a58c;color:var(--green);transform:translateY(-1px)}
+.chip.sel{background:var(--mint);border-color:#80b79a;color:var(--green);font-weight:750}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.callout{border:1px solid var(--line);border-radius:14px;padding:15px;margin:16px 0 0;background:#fbfdfb}
+.callout strong{color:var(--green)}
+.preview{white-space:pre-wrap;font-size:13px;color:#2c4138;max-height:260px;overflow:auto;margin-top:8px}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.pill{background:#f1f6f2;border:1px solid var(--line);border-radius:20px;padding:5px 12px;font-size:12px;color:var(--muted)}.pill b{color:var(--green)}
+.switch{display:flex;gap:12px;align-items:flex-start;padding:14px;border:1px solid var(--line);border-radius:14px;margin-top:14px;background:#fbfdfb;cursor:pointer}
+.switch input{appearance:none;width:42px;height:24px;border-radius:20px;background:#cfdcd3;position:relative;flex:none;cursor:pointer;transition:.2s;margin:2px 0 0}
+.switch input:after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.switch input:checked{background:var(--green2)}.switch input:checked:after{left:21px}
+.switch input:focus-visible{outline:2px solid var(--green2);outline-offset:2px}
+.switch b{color:var(--green);display:block;font-size:13px}.switch span{font-size:12px;color:var(--muted)}
+.resulttabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 0}
+.resulttab{border:1px solid var(--line);border-radius:999px;padding:10px 13px;background:#fff;color:var(--muted);font-weight:700;font-size:13px;display:inline-flex;gap:7px;align-items:center}
+.resulttab.active{background:var(--green);color:#fff;border-color:var(--green)}
+
+/* Preguntas */
+.qa{margin-top:14px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:#fbfdfb}
+.qa label{margin:0 0 8px;display:flex;gap:10px;align-items:flex-start}
+.qn{width:22px;height:22px;border-radius:50%;background:var(--mint);color:var(--green);display:grid;place-items:center;font-size:11px;flex:none;margin-top:1px}
+.qa textarea{min-height:72px}
+.quick{margin-top:8px}.quick .chip{padding:4px 11px}
+.empty{text-align:center;padding:26px 16px;border:1px dashed #cbd9d0;border-radius:14px;background:#fbfdfb;margin-top:18px}
+.empty p{margin:0 0 14px;color:var(--muted)}
+
+/* Documentos y pruebas */
+.drop{display:grid;justify-items:center;text-align:center;gap:6px;padding:26px 16px;border:2px dashed #b9d2c3;border-radius:16px;background:#f7fbf8;color:var(--muted);cursor:pointer;transition:.2s;font-weight:500}
+.drop:hover,.drop.over{border-color:var(--green2);background:var(--mint);color:var(--green)}
+.drop svg.i{width:30px;height:30px;color:var(--green2)}
+.drop b{color:var(--green);font-size:14px}
+.drop small{font-size:12px;max-width:520px}
+.doc{border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-top:12px;background:#fff}
+.dochead{display:flex;gap:12px;align-items:center}
+.docicon{width:40px;height:40px;border-radius:12px;background:var(--mint);color:var(--green2);display:grid;place-items:center;flex:none}
+.docmeta{flex:1;min-width:0}
+.docmeta b{display:block;color:var(--green);font-size:13.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.docmeta small{color:var(--muted);font-size:12px}
+.badge{font-size:11px;font-weight:750;padding:4px 10px;border-radius:20px;background:#f1f6f2;color:var(--muted);border:1px solid var(--line);flex:none;display:inline-flex;gap:6px;align-items:center}
+.badge.ok{background:#e7f4ec;color:var(--green2);border-color:#cfe4d6}
+.badge.warn{background:var(--warn);color:#74551f;border-color:#f0dfb8}
+.badge.bad{background:#fff1ef;color:var(--red);border-color:#f0d5d1}
+.badge .spin{width:11px;height:11px}
+.doc .grid2 label{margin:12px 0 6px}
+.doc select,.doc input[type=text]{padding:10px 12px;font-size:13.5px}
+.doc .notice{padding:10px 12px;margin-top:10px}
+.consent{display:flex;gap:9px;align-items:flex-start;font-size:12.5px;color:#74551f;background:var(--warn);border:1px solid #f0dfb8;border-radius:10px;padding:10px 12px;margin:12px 0 0;font-weight:500;cursor:pointer}
+.consent input{margin-top:3px;accent-color:var(--green2);flex:none}
+details.dd{margin-top:10px;border-top:1px dashed var(--line);padding-top:8px}
+details.dd summary{cursor:pointer;font-size:12.5px;font-weight:700;color:var(--green2);list-style:none;display:flex;gap:6px;align-items:center}
+details.dd summary::-webkit-details-marker{display:none}
+details.dd summary:before{content:"▸";transition:transform .2s}
+details.dd[open] summary:before{transform:rotate(90deg)}
+details.dd textarea{min-height:140px;margin-top:8px;font-size:13px}
+.docbtns{margin-top:12px}
+
+/* Documentos con formato (Markdown renderizado) */
+.report{background:#fbfcfb;border:1px solid var(--line);border-radius:14px;padding:18px 22px;font-size:14px;line-height:1.7;margin-top:12px}
+.md>:first-child{margin-top:0}
+.md h2,.md h3,.md h4,.md h5{font-family:Georgia,"Times New Roman",serif;color:var(--green);line-height:1.25;margin:1.3em 0 .4em}
+.md h2{font-size:19px;padding-bottom:5px;border-bottom:1px solid var(--line)}
+.md h3{font-size:16.5px}.md h4{font-size:15px}.md h5{font-size:14px}
+.md p{margin:.55em 0}
+.md ul,.md ol{padding-left:24px;margin:.5em 0}.md li{margin:.28em 0}
+.md hr{border:0;border-top:1px solid var(--line);margin:1.2em 0}
+.md code{background:#eef3ef;padding:1px 5px;border-radius:10px;font-size:.92em}
+.md strong{color:var(--green)}
+.tablewrap{overflow-x:auto;margin:.8em 0}
+.md table{border-collapse:collapse;font-size:13px;min-width:100%}
+.md th,.md td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+.md th{background:#eef5f0;color:var(--green)}
+.docedit{margin-top:12px}
+
+.footer{max-width:1180px;padding:0 20px 30px;margin:-18px auto 0;color:#6d7b75;font-size:11px;display:flex;justify-content:space-between;gap:16px}
+.hidden{display:none!important}
+.spin{display:inline-block;width:14px;height:14px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:spin .7s linear infinite;flex:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Modal y avisos */
+.modal{position:fixed;inset:0;background:rgba(11,38,32,.45);display:grid;place-items:center;z-index:50;padding:20px;animation:fade .2s ease}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.modalcard{background:#fff;border-radius:20px;max-width:560px;width:100%;max-height:80vh;overflow:auto;padding:24px;box-shadow:var(--shadow);animation:enter .3s ease}
+.caseitem{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.caseitem b{display:block;font-size:13px;color:var(--green)}.caseitem small{color:var(--muted);font-size:11px}
+.ci-actions{display:flex;gap:6px;flex:none}
+.toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%) translateY(20px);background:var(--green);color:#fff;padding:12px 18px;border-radius:12px;font-size:13px;box-shadow:var(--shadow);opacity:0;transition:.3s;z-index:60;border-left:4px solid var(--gold);pointer-events:none;max-width:90vw}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:900px){.herodeco{opacity:.25;right:-30px}}
+@media(max-width:820px){
+ .shell{grid-template-columns:1fr;margin-top:16px}
+ .sidebar{position:static;padding:13px}.sidehead{margin:2px 0 8px}
+ .steps{display:flex;overflow-x:auto;gap:4px;padding-bottom:6px}
+ .stepnav{flex:0 0 auto;width:auto;min-width:78px;display:grid;justify-items:center;text-align:center;padding:8px 6px;gap:5px;font-size:10px}
+ .privacy{display:none}.sidebtns{grid-template-columns:1fr 1fr}
+ .hero{padding:24px 22px 20px}
+ .content{padding:23px 22px 0}
+ .actions{margin:24px -22px 0;padding:12px 22px}
+ .topright{display:none}
+}
+@media(max-width:520px){.grid2{grid-template-columns:1fr}.actions .right{flex:1}.actions .btn{flex:1;padding:12px 10px}.keyrow{flex-direction:column}.footer{display:block}.brand h1{font-size:15px}.logo{width:46px;height:46px}.herodeco{display:none}.progressrow{flex-wrap:wrap}.sec{padding:16px 0 2px}.dochead{flex-wrap:wrap}}
+@media (prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">
+      <svg class="scale" viewBox="0 0 120 100" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M60 16v70M40 92h40"/><circle cx="60" cy="11" r="4"/><g class="beam"><path d="M20 22h80"/><g class="panL"><path d="M20 22L8 52M20 22l12 30M4 52h32a16 9 0 0 1-32 0z"/></g><g class="panR"><path d="M100 22L88 52M100 22l12 30M84 52h32a16 9 0 0 1-32 0z"/></g></g></g></svg>
+    </div>
+    <div><h1>CONSULTORIO JURÍDICO <span>DE ÁNGEL RAÚL ROLDÁN</span></h1><p>Orientador jurídico virtual · Derecho colombiano</p></div>
+  </div>
+  <div class="topright">HERRAMIENTA DE TRABAJO<br>USO PERSONAL</div>
+</header>
+
+<div class="shell">
+  <aside class="sidebar">
+    <div class="sidehead">RECORRIDO DEL CASO</div>
+    <nav class="steps" id="stepNav" aria-label="Pasos del caso"></nav>
+    <div class="privacy"><b data-icon="lock">Privacidad</b>Antes de enviar a la IA, los nombres registrados, cédulas, teléfonos, correos y direcciones se reemplazan por marcadores. Imágenes, escaneos, audios y videos solo se envían si los autorizas uno por uno. La API key nunca se guarda. Los casos guardados quedan solo en este navegador, sin los archivos originales.</div>
+    <div class="sidebtns">
+      <button class="btn quiet small" id="newCase" data-icon="plus">Nuevo caso</button>
+      <button class="btn secondary small" id="openCases" data-icon="folder">Casos guardados</button>
+      <button class="btn quiet small" id="exportCases" data-icon="download">Exportar respaldo</button>
+      <button class="btn quiet small" id="importCases" data-icon="upload">Importar respaldo</button>
+      <input type="file" id="importFile" accept="application/json,.json" class="hidden">
+    </div>
+  </aside>
+
+  <main class="maincard">
+    <section class="hero" id="hero">
+      <div class="txt">
+        <div class="eyebrow">Comprender · Orientar · Actuar</div>
+        <h2>Cada caso merece ser comprendido antes de ser analizado.</h2>
+        <p>Organiza los hechos y las pruebas, identifica los problemas jurídicos y explora rutas de actuación, paso a paso y con los datos personales protegidos.</p>
+      </div>
+      <div class="herodeco" aria-hidden="true">
+        <svg class="scale bigscale" viewBox="0 0 120 100"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M60 16v70M42 92h36M48 86h24"/><circle cx="60" cy="11" r="4"/><g class="beam"><path d="M20 22h80"/><g class="panL"><path d="M20 22L8 52M20 22l12 30M4 52h32a16 9 0 0 1-32 0z"/></g><g class="panR"><path d="M100 22L88 52M100 22l12 30M84 52h32a16 9 0 0 1-32 0z"/></g></g></g></svg>
+        <div class="gavelwrap" id="gavel">
+          <svg viewBox="0 0 64 64" width="96" height="96"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><g class="gavelhead"><path d="M14 50L34 24"/><rect x="26" y="8" width="26" height="13" rx="3" transform="rotate(38 39 14.5)"/></g><path d="M36 54h22v5H36z"/><path d="M32 62h30"/></g></svg>
+          <span class="ripple"></span>
+        </div>
+      </div>
+    </section>
+    <div class="content">
+      <div class="progressrow"><span id="stepLabel">PASO 1 DE 9</span><span class="meta"><span class="savestate" id="saveState"></span><span id="percent">11% completado</span></span></div>
+      <div class="bar"><span id="progressBar"></span></div>
+      <section id="stage" aria-live="polite"></section>
+      <div class="actions">
+        <button class="btn quiet" id="backBtn">← Anterior</button>
+        <div class="right"><button class="btn secondary" id="saveBtn">Guardar caso</button><button class="btn primary" id="nextBtn">Continuar →</button></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<footer class="footer"><span>Herramienta personal de apoyo para el trabajo en consultorio jurídico. No es un concepto jurídico ni sustituye la revisión del docente asesor.</span><span>Verifica normas, jurisprudencia y términos en fuentes oficiales antes de actuar.</span></footer>
+
+<div class="modal hidden" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modalcard"><div class="titlerow"><div class="stepicon" id="modalIcon"></div><h3 id="modalTitle">Casos guardados</h3></div><p class="sub">Guardados solo en este navegador.</p><div id="caseList"></div><div style="margin-top:16px;text-align:right"><button class="btn quiet" id="closeModal">Cerrar</button></div></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<noscript><p style="padding:20px;text-align:center">Esta herramienta necesita JavaScript activado.</p></noscript>
+
+<script>
+(() => {
+const ICON={
+ key:'<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3M14.5 8.5l2 2"/>',
+ quill:'<path d="M20 3C13 4 8 9 6 16l-1 5 5-1C17 18 20 11 20 3z"/><path d="M9 15l6-6"/>',
+ hourglass:'<path d="M5 3h14M5 21h14"/><path d="M7 3v2c0 3 5 4.5 5 7 0-2.5 5-4 5-7V3M7 21v-2c0-3 5-4.5 5-7 0 2.5 5 4 5 7v2"/>',
+ search:'<circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/>',
+ book:'<path d="M3 5c3-1 6-1 9 1 3-2 6-2 9-1v14c-3-1-6-1-9 1-3-2-6-2-9-1z"/><path d="M12 6v14"/>',
+ scale:'<path d="M12 3v18M7 21h10M5 7h14"/><path d="M5 7l-3 6a3 3 0 0 0 6 0zM19 7l-3 6a3 3 0 0 0 6 0z"/>',
+ columns:'<path d="M3 10l9-6 9 6z"/><path d="M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 21h18M4 18h16"/>',
+ seal:'<path d="M14 3H6v18h7"/><path d="M14 3l5 5v6"/><path d="M14 3v5h5"/><circle cx="17.5" cy="18" r="3"/><path d="M9 10h3M9 14h5"/>',
+ check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+ lock:'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+ folder:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+ plus:'<path d="M12 5v14M5 12h14"/>',
+ trash:'<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>',
+ download:'<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>',
+ upload:'<path d="M12 20V9M7 14l5-5 5 5M5 4h14"/>',
+ warn:'<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/>',
+ info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5h.01"/>',
+ spark:'<path d="M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/>',
+ shield:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/>',
+ copy:'<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/>',
+ eye:'<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+ person:'<circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/>',
+ clip:'<path d="M20 11l-8.5 8.5a5 5 0 0 1-7-7L13 4a3.5 3.5 0 0 1 5 5l-8.5 8.5a2 2 0 0 1-3-3L14 7"/>',
+ file:'<path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4M9 12h6M9 16h6"/>',
+ image:'<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/>',
+ mic:'<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>',
+ video:'<rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3z"/>',
+ paste:'<rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4V3h6v1M9 10h6M9 14h6"/>'
+};
+const ic=n=>`<svg class="i" viewBox="0 0 24 24" aria-hidden="true">${ICON[n]||""}</svg>`;
+document.querySelectorAll("[data-icon]").forEach(el=>el.insertAdjacentHTML("afterbegin",ic(el.dataset.icon)));
+
+/* Índices de los pasos: así cada pantalla, validación y texto se refiere al paso por su nombre. */
+const P={CFG:0,DOCS:1,STORY:2,URG:3,Q:4,AREA:5,ANA:6,RUT:7,REP:8};
+const STEPS=[{n:"Configuración IA",i:"key"},{n:"Documentos y pruebas",i:"clip"},{n:"Relato del caso",i:"quill"},{n:"Urgencias y plazos",i:"hourglass"},{n:"Preguntas clave",i:"search"},{n:"Clasificación",i:"book"},{n:"Análisis jurídico",i:"scale"},{n:"Rutas de acción",i:"columns"},{n:"Informes",i:"seal"}];
+const TITLES=["Conecta la inteligencia artificial","Reúne los documentos y pruebas","Cuéntanos qué está pasando","¿Hay algo que no pueda esperar?","Completemos los hechos","Identifiquemos el área jurídica","Analicemos el problema jurídico","Exploremos las rutas de actuación","Resultados del caso"];
+const AREAS=["Laboral","Civil","Familia","Administrativo","Constitucional","Seguridad social","Penal","Comercial","Consumo","Varias áreas","Aún no lo sé"];
+const MIN_STORY=80,MAX_DOCS=30,TEXT_CAP=40000,MB=1048576;
+const DOC_TYPES=["Citación","Notificación","Resolución o acto administrativo","Demanda o providencia judicial","Correo electrónico","Contrato","Liquidación o soporte de pago","Carta o comunicación","Chat o mensajes","Certificado","Foto o captura","Audio","Video","Otro"];
+const KIND={texto:{label:"Documento con texto",icon:"file"},pdf:{label:"PDF con texto",icon:"file"},escaneado:{label:"PDF escaneado",icon:"image"},imagen:{label:"Imagen",icon:"image"},audio:{label:"Audio",icon:"mic"},video:{label:"Video",icon:"video"},nota:{label:"Texto pegado",icon:"paste"}};
+const hasKind=k=>Object.prototype.hasOwnProperty.call(KIND,k);
+const ACCEPT=".pdf,.docx,.xlsx,.xls,.ods,.txt,.md,.csv,.json,.xml,.eml,.html,.htm,image/*,audio/*,video/*,.opus,.ogg,.m4a";
+const LIB={pdf:"https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js",pdfWorker:"https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js",mammoth:"https://cdn.jsdelivr.net/npm/mammoth@1.8.0/mammoth.browser.min.js",xlsx:"https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"};
+
+const blank=()=>({caseId:"",caseCode:"",names:"",story:"",goal:"",date:"",urgency:"",urgencyDetails:"",questions:[],answers:[],area:"",analysis:"",routes:"",citizenReport:"",technicalReport:"",activeReport:"citizen",analysisBase:"",reportsBase:"",docs:[],evidenceSummary:"",evidenceBase:""});
+const CASE_KEYS=Object.keys(blank());
+const state=Object.assign({step:0,maxStep:0,apiKey:"",model:"gpt-4o-mini",sttModel:"gpt-4o-mini-transcribe",endpoint:"https://api.openai.com/v1/responses",redact:true,loading:false,busyMsg:"",showPreview:false,errors:{},aiError:"",editing:{},open:{},prev:{}},blank());
+/* Archivos originales: solo en memoria de la pestaña, nunca se guardan. */
+const FILES={};
+const clearFiles=()=>{for(const k in FILES)delete FILES[k]};
+
+const $=id=>document.getElementById(id);
+const qsa=s=>document.querySelectorAll(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const hash=s=>{let h=5381;for(let i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))|0;return String(h)};
+const hoy=()=>new Intl.DateTimeFormat("en-CA",{timeZone:"America/Bogota"}).format(new Date());
+const hora=()=>new Date().toLocaleTimeString("es-CO",{timeZone:"America/Bogota",hour:"2-digit",minute:"2-digit"});
+const extOf=n=>{const m=String(n||"").toLowerCase().match(/\.([a-z0-9]+)$/);return m?m[1]:""};
+const fmtSize=b=>b>=MB?(b/MB).toFixed(1).replace(".",",")+" MB":Math.max(1,Math.round(b/1024))+" KB";
+const newId=()=>"d"+Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+
+/* ---------- Avisos y animaciones ---------- */
+let toastTimer;
+function toast(msg){const t=$("toast");t.textContent=msg;t.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove("show"),3600)}
+function strike(){const g=$("gavel");g.classList.remove("hit");void g.offsetWidth;g.classList.add("hit")}
+
+/* ---------- Markdown seguro (escapa primero, formatea después) ---------- */
+function md(src){
+ const inl=s=>esc(s).replace(/`([^`]+)`/g,"<code>$1</code>").replace(/\*\*([^*]+?)\*\*/g,"<strong>$1</strong>").replace(/(^|[^*\w])\*([^*\s][^*]*?)\*(?![*\w])/g,"$1<em>$2</em>");
+ let out="",list="",para=[],tbl=[];
+ const fP=()=>{if(para.length){out+="<p>"+para.map(inl).join("<br>")+"</p>";para=[]}};
+ const fL=()=>{if(list){out+=`</${list}>`;list=""}};
+ const fT=()=>{if(!tbl.length)return;
+  const rows=tbl.filter(r=>!/^\s*\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)*\|?\s*$/.test(r)).map(r=>r.trim().replace(/^\||\|$/g,"").split("|").map(c=>c.trim()));
+  out+=`<div class="tablewrap"><table>${rows.map((r,i)=>`<tr>${r.map(c=>`<${i?"td":"th"}>${inl(c)}</${i?"td":"th"}>`).join("")}</tr>`).join("")}</table></div>`;tbl=[]};
+ for(const raw of String(src||"").replace(/\r/g,"").split("\n")){
+  const l=raw.trimEnd();let m;
+  if(l.trim().startsWith("|")){fP();fL();tbl.push(l);continue}
+  fT();
+  if(!l.trim()){fP();fL();continue}
+  if((m=l.match(/^\s*(#{1,4})\s+(.*)$/))){fP();fL();const n=m[1].length+1;out+=`<h${n}>${inl(m[2])}</h${n}>`;continue}
+  if(/^\s*([-*_])(\s*\1){2,}\s*$/.test(l)){fP();fL();out+="<hr>";continue}
+  if((m=l.match(/^\s*[-*•]\s+(.*)$/))){fP();if(list!=="ul"){fL();out+="<ul>";list="ul"}out+=`<li>${inl(m[1])}</li>`;continue}
+  if((m=l.match(/^\s*(\d+)[.)]\s+(.*)$/))){fP();if(list!=="ol"){fL();out+="<ol>";list="ol"}out+=`<li value="${m[1]}">${inl(m[2])}</li>`;continue}
+  fL();para.push(l.trim());
+ }
+ fP();fL();fT();
+ return out;
+}
+
+/* ---------- Anonimización ---------- */
+function nameList(){return (state.names||"").split(/[,;\n]/).map(s=>s.trim()).filter(s=>s.length>1)}
+const reEsc=s=>s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+function anon(text){
+ let t=String(text??"");
+ if(!state.redact)return t;
+ nameList().map((n,i)=>({n,i})).sort((a,b)=>b.n.length-a.n.length).forEach(({n,i})=>{
+  t=t.replace(new RegExp(`(?<![\\p{L}\\d])${reEsc(n)}(?![\\p{L}\\d])`,"giu"),`[PERSONA ${i+1}]`);
+ });
+ t=t.replace(/[\w.+-]+@[\w-]+(?:\.[\w-]+)+/g,"[CORREO]");
+ t=t.replace(/\b(?:calle|cl|carrera|cra|kr|cr|avenida|av|diagonal|dg|transversal|tv|tr)\.?\s*\d+\s*[a-z]?(?:\s*bis)?\s*(?:#|n[o°º]\.?)\s*\d+\s*[a-z]?\s*-\s*\d+\b/gi,"[DIRECCIÓN]");
+ t=t.replace(/(?:\+?57[\s-]?)?\b3\d{2}[\s-]?\d{3}[\s-]?\d{4}\b/g,"[TELÉFONO]");
+ t=t.replace(/(?<![$\d.,])(?<!\$\s)\b\d{1,3}(?:\.\d{3}){2,3}\b(?![.,]\d)/g,"[DOCUMENTO]");
+ t=t.replace(/(?<![$\d.,])(?<!\$\s)\b\d{6,11}\b/g,"[DOCUMENTO]");
+ return t;
+}
+function deanon(text){if(!state.redact)return text;const L=nameList();return String(text||"").replace(/\[PERSONA (\d+)\]/g,(m,k)=>L[k-1]||m)}
+
+/* ---------- Almacenamiento local ---------- */
+const LS="cjar_casos";
+let dirty=false,saveTimer,savedAt="",saveFailed=false;
+function readCases(){try{return JSON.parse(localStorage.getItem(LS)||"[]")}catch{return[]}}
+function writeCases(a,silent){try{localStorage.setItem(LS,JSON.stringify(a));return true}catch{if(!silent)alert("No se pudo guardar en este navegador. Si el caso tiene muchos documentos, puede que se haya llenado el espacio: exporta un respaldo y elimina casos antiguos.");return false}}
+function caseData(){const d={};CASE_KEYS.forEach(k=>d[k]=state[k]);const o=JSON.parse(JSON.stringify(d));o.docs=o.docs.map(cleanDoc);return o}
+const str=(v,n)=>typeof v==="string"?v.slice(0,n):"";
+function cleanDoc(x){
+ return {id:/^[\w-]{1,40}$/.test(x.id||"")?x.id:newId(),name:str(x.name,200)||"Documento",size:Math.max(0,Number(x.size)||0),kind:hasKind(x.kind)?x.kind:"texto",label:DOC_TYPES.includes(x.label)?x.label:"",note:str(x.note,500),text:str(x.text,TEXT_CAP+200),analysis:str(x.analysis,20000),alert:["SÍ","NO","POSIBLE"].includes(x.alert)?x.alert:"",consent:x.consent===true,aBase:str(x.aBase,20),pages:Math.max(0,Math.min(9999,Number(x.pages)||0)),error:str(x.error,300)};
+}
+/* Solo se aceptan las claves y tipos de un caso: un respaldo manipulado no puede tocar la clave, el endpoint ni el estado de la app. */
+function cleanData(d){
+ const o=blank();
+ if(d&&typeof d==="object")CASE_KEYS.forEach(k=>{
+  const v=d[k];
+  if(k==="docs"){if(Array.isArray(v))o.docs=v.filter(x=>x&&typeof x==="object").slice(0,MAX_DOCS).map(cleanDoc)}
+  else if(Array.isArray(o[k])){if(Array.isArray(v))o[k]=v.slice(0,20).map(x=>String(x??"").slice(0,5000))}
+  else if(typeof v==="string")o[k]=v.slice(0,100000);
+ });
+ if(!["citizen","technical"].includes(o.activeReport))o.activeReport="citizen";
+ return o;
+}
+function titleOf(){const base=anon(state.story||(state.docs.length?`Caso con ${state.docs.length} documento(s), sin relato`:"Caso sin relato")).replace(/\s+/g," ").slice(0,60);return (state.caseCode?state.caseCode+" · ":"")+base}
+const isDemo=()=>state.caseCode.startsWith("EJEMPLO-");
+const hasContent=()=>!isDemo()&&(["story","goal","caseCode","names"].some(k=>state[k].trim())||state.docs.length>0);
+function saveLocal(silent){
+ if(!hasContent()){if(!silent)toast("Escribe algo del caso o sube un documento antes de guardarlo.");return false}
+ if(!state.caseId)state.caseId="CASO-"+Date.now();
+ const arr=readCases().filter(c=>c.id!==state.caseId);
+ arr.unshift({id:state.caseId,title:titleOf(),updatedAt:new Date().toISOString(),data:caseData()});
+ const ok=writeCases(arr.slice(0,50),silent);
+ saveFailed=!ok;
+ if(ok){dirty=false;savedAt=hora();if(!silent)toast("Caso guardado en este navegador. La API key y los archivos originales no se guardan.")}
+ setSave();
+ return ok;
+}
+function autosave(){clearTimeout(saveTimer);if(hasContent())saveLocal(true);else setSave()}
+function markDirty(){dirty=true;setSave();clearTimeout(saveTimer);saveTimer=setTimeout(autosave,1200)}
+function setSave(){
+ const el=$("saveState");if(!el)return;
+ if(!hasContent()){el.className="savestate";el.innerHTML="";return}
+ if(saveFailed){el.className="savestate fail";el.innerHTML='<span class="dot"></span>No se pudo guardar';return}
+ if(dirty){el.className="savestate dirty";el.innerHTML='<span class="dot"></span>Guardando…';return}
+ el.className="savestate";el.innerHTML=`<span class="dot"></span>Guardado${savedAt?" "+savedAt:""}`;
+}
+window.addEventListener("beforeunload",e=>{if((dirty&&hasContent())||Object.keys(FILES).length){if(dirty&&hasContent())autosave();if(dirty||Object.keys(FILES).length){e.preventDefault();e.returnValue=""}}});
+
+function reachedStep(d){return d.citizenReport||d.technicalReport?P.REP:d.routes||d.analysis?P.RUT:d.area?P.ANA:d.questions.length?P.AREA:d.urgency?P.Q:d.story?P.URG:P.STORY}
+const resetUI=()=>({errors:{},aiError:"",editing:{},showPreview:false,open:{},prev:{},busyMsg:""});
+let lastFocus=null;
+function openCases(){
+ $("modalIcon").innerHTML=ic("folder");
+ const arr=readCases();
+ $("caseList").innerHTML=arr.length?arr.map(c=>`<div class="caseitem"><div><b>${esc(c.title)}</b><small>${esc(c.data&&c.data.area?c.data.area+" · ":"")}${c.data&&Array.isArray(c.data.docs)&&c.data.docs.length?esc(c.data.docs.length+" documento(s) · "):""}${esc(new Date(c.updatedAt).toLocaleString("es-CO",{timeZone:"America/Bogota"}))}</small></div><div class="ci-actions"><button class="btn secondary small" data-open="${esc(c.id)}">Abrir</button><button class="btn danger small" data-del="${esc(c.id)}" title="Eliminar" aria-label="Eliminar caso">${ic("trash")}</button></div></div>`).join(""):`<p class="sub">No hay casos guardados en este navegador.</p>`;
+ $("caseList").querySelectorAll("[data-open]").forEach(b=>b.onclick=()=>{
+  if(state.loading){toast("Espera a que termine la IA.");return}
+  const c=readCases().find(x=>x.id===b.dataset.open);if(!c)return;
+  autosave();
+  const d=cleanData(c.data);
+  if(String(c.id)!==state.caseId)clearFiles();
+  Object.assign(state,blank(),d,{caseId:String(c.id)},resetUI());
+  state.step=d.docs.length?P.DOCS:P.STORY;state.maxStep=reachedStep(d);dirty=false;savedAt="";saveFailed=false;
+  closeModal();render();toast("Caso abierto.");
+ });
+ $("caseList").querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{if(!confirm("¿Eliminar este caso guardado? No se puede deshacer."))return;writeCases(readCases().filter(x=>x.id!==b.dataset.del));if(state.caseId===b.dataset.del)state.caseId="";openCases()});
+ if($("modal").classList.contains("hidden"))lastFocus=document.activeElement;
+ $("modal").classList.remove("hidden");$("closeModal").focus();
+}
+function closeModal(){$("modal").classList.add("hidden");if(lastFocus&&lastFocus.focus)lastFocus.focus()}
+function exportCases(){const arr=readCases();if(!arr.length){toast("No hay casos guardados para exportar.");return}downloadText(JSON.stringify(arr,null,2),`respaldo-casos-${hoy()}.json`,"application/json")}
+function importCases(file){
+ const r=new FileReader();
+ r.onload=()=>{try{
+  const inc=JSON.parse(r.result);if(!Array.isArray(inc))throw 0;
+  const valid=inc.filter(c=>c&&typeof c.id==="string"&&c.id&&c.data&&typeof c.data==="object").map(c=>({id:c.id.slice(0,60),title:String(c.title||"Caso importado").slice(0,120),updatedAt:isNaN(Date.parse(c.updatedAt))?new Date().toISOString():c.updatedAt,data:cleanData(c.data)}));
+  if(!valid.length)throw 0;
+  const ids=new Set(valid.map(c=>c.id));
+  const merged=valid.concat(readCases().filter(c=>!ids.has(c.id))).sort((a,b)=>Date.parse(b.updatedAt)-Date.parse(a.updatedAt));
+  const kept=merged.slice(0,50);
+  if(writeCases(kept))toast(`Respaldo importado: ${valid.length} caso(s).${merged.length>50?" Solo se conservan los 50 más recientes.":""}`);
+ }catch{alert("El archivo no es un respaldo válido.")}};
+ r.readAsText(file);
+}
+function downloadText(txt,name,type="text/plain;charset=utf-8"){const blob=new Blob([txt],{type});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+
+/* ---------- Lectura de documentos (en este equipo, sin IA) ---------- */
+const libs={};
+function loadScript(src){return libs[src]||(libs[src]=new Promise((ok,ko)=>{const s=document.createElement("script");s.src=src;s.onload=ok;s.onerror=()=>{delete libs[src];s.remove();ko(new Error("No se pudo cargar el lector de este formato. Revisa tu conexión a internet."))};document.head.appendChild(s)}))}
+async function loadPdf(){await loadScript(LIB.pdf);const lib=window.pdfjsLib;lib.GlobalWorkerOptions.workerSrc=LIB.pdfWorker;return lib}
+async function openPdf(f){
+ const lib=await loadPdf();
+ try{return await lib.getDocument({data:new Uint8Array(await f.arrayBuffer())}).promise}
+ catch(e){throw new Error(e&&e.name==="PasswordException"?"El PDF tiene contraseña. Ábrelo, quítale la protección y vuelve a subirlo.":"No se pudo leer el PDF. Puede estar dañado.")}
+}
+async function pdfText(f){
+ const pdf=await openPdf(f);let t="";
+ for(let p=1;p<=pdf.numPages;p++){const pg=await pdf.getPage(p);const tc=await pg.getTextContent();t+=`\n--- Página ${p} ---\n`+tc.items.map(i=>i.str+(i.hasEOL?"\n":" ")).join("")}
+ return {text:t.trim(),pages:pdf.numPages};
+}
+async function pdfImages(f,max=8){
+ const pdf=await openPdf(f);const out=[];
+ for(let p=1;p<=Math.min(pdf.numPages,max);p++){
+  const pg=await pdf.getPage(p);const vp0=pg.getViewport({scale:1});const vp=pg.getViewport({scale:Math.min(2,1500/vp0.width)});
+  const c=document.createElement("canvas");c.width=Math.round(vp.width);c.height=Math.round(vp.height);
+  await pg.render({canvasContext:c.getContext("2d"),viewport:vp}).promise;out.push(c.toDataURL("image/jpeg",.8));
+ }
+ return out;
+}
+async function imageData(f){
+ const url=URL.createObjectURL(f);
+ try{
+  const img=await new Promise((ok,ko)=>{const i=new Image();i.onload=()=>ok(i);i.onerror=()=>ko(new Error("El navegador no pudo abrir esta imagen. Si es HEIC (iPhone), conviértela a JPG."));i.src=url});
+  const sc=Math.min(1,1600/Math.max(img.naturalWidth,img.naturalHeight));
+  const c=document.createElement("canvas");c.width=Math.round(img.naturalWidth*sc);c.height=Math.round(img.naturalHeight*sc);
+  c.getContext("2d").drawImage(img,0,0,c.width,c.height);return c.toDataURL("image/jpeg",.85);
+ }finally{URL.revokeObjectURL(url)}
+}
+const waitFor=(target,ev,ms)=>new Promise((ok,ko)=>{const t=setTimeout(()=>ko(new Error("tiempo agotado")),ms);target.addEventListener(ev,()=>{clearTimeout(t);ok()},{once:true});target.addEventListener("error",()=>{clearTimeout(t);ko(new Error("error"))},{once:true})});
+async function videoFrames(f,n=4){
+ const url=URL.createObjectURL(f);const v=document.createElement("video");v.muted=true;v.preload="auto";v.playsInline=true;
+ try{
+  v.src=url;await waitFor(v,"loadeddata",15000);
+  if(!isFinite(v.duration)||!v.videoWidth)return [];
+  const out=[];
+  for(let k=1;k<=n;k++){
+   v.currentTime=v.duration*k/(n+1);await waitFor(v,"seeked",10000);
+   const sc=Math.min(1,960/v.videoWidth);const c=document.createElement("canvas");c.width=Math.round(v.videoWidth*sc);c.height=Math.round(v.videoHeight*sc);
+   c.getContext("2d").drawImage(v,0,0,c.width,c.height);out.push(c.toDataURL("image/jpeg",.8));
+  }
+  return out;
+ }finally{URL.revokeObjectURL(url);v.removeAttribute("src");v.load()}
+}
+function decodeBytes(bytes,cs){try{return new TextDecoder(cs||"utf-8").decode(bytes)}catch{return new TextDecoder().decode(bytes)}}
+function decodeBody(s,enc,cs){
+ let bytes;
+ if(enc==="base64"){try{const b=atob(s.replace(/\s+/g,""));bytes=Uint8Array.from(b,c=>c.charCodeAt(0))}catch{return s}}
+ else if(enc==="quoted-printable"){
+  const q=s.replace(/=\n/g,"");const a=[];const te=new TextEncoder();
+  for(let i=0;i<q.length;i++){if(q[i]==="="&&/^[0-9A-F]{2}$/i.test(q.substr(i+1,2))){a.push(parseInt(q.substr(i+1,2),16));i+=2}else{const c=q.charCodeAt(i);if(c<128)a.push(c);else a.push(...te.encode(q[i]))}}
+  bytes=new Uint8Array(a);
+ }else return s;
+ return decodeBytes(bytes,cs);
+}
+function decodeHeader(v){return v.replace(/=\?([^?]+)\?([BQ])\?([^?]*)\?=/gi,(m,cs,e,t)=>{try{let bytes;if(e.toUpperCase()==="B")bytes=Uint8Array.from(atob(t),c=>c.charCodeAt(0));else{const q=t.replace(/_/g," ");const a=[];for(let i=0;i<q.length;i++){if(q[i]==="="){a.push(parseInt(q.substr(i+1,2),16));i+=2}else a.push(q.charCodeAt(i))}bytes=new Uint8Array(a)}return decodeBytes(bytes,cs)}catch{return m}})}
+const htmlText=h=>(new DOMParser().parseFromString(h,"text/html").body.textContent||"").replace(/[ \t]+\n/g,"\n").replace(/\n{3,}/g,"\n\n").trim();
+function parseEml(raw){
+ raw=raw.replace(/\r\n/g,"\n");
+ const i=raw.indexOf("\n\n");const head=i>0?raw.slice(0,i):"";const body=i>0?raw.slice(i+2):raw;
+ const unf=head.replace(/\n[ \t]+/g," ");
+ const h=n=>{const m=unf.match(new RegExp("^"+n+":\\s*(.*)$","im"));return m?decodeHeader(m[1]):""};
+ const parts=[];
+ const walk=(hdr,bd)=>{
+  hdr=hdr.replace(/\n[ \t]+/g," ");
+  const ct=((hdr.match(/content-type:\s*([^;\n]+)/i)||[,"text/plain"])[1]).trim().toLowerCase();
+  const bm=hdr.match(/boundary="?([^";\n]+)"?/i);
+  if(ct.startsWith("multipart/")&&bm){bd.split("--"+bm[1]).slice(1).forEach(p=>{if(p.startsWith("--"))return;p=p.replace(/^\n/,"");const j=p.indexOf("\n\n");if(j<0)return;walk(p.slice(0,j),p.slice(j+2))});return}
+  if(!ct.startsWith("text/"))return;
+  const enc=((hdr.match(/content-transfer-encoding:\s*(\S+)/i)||[,""])[1]).toLowerCase();
+  const cs=(hdr.match(/charset="?([^";\s]+)"?/i)||[,"utf-8"])[1];
+  let txt=decodeBody(bd,enc,cs);if(ct==="text/html")txt=htmlText(txt);
+  parts.push({ct,txt});
+ };
+ walk(head,body);
+ const main=parts.find(p=>p.ct==="text/plain")||parts[0];
+ return `De: ${h("From")}\nPara: ${h("To")}\nFecha: ${h("Date")}\nAsunto: ${h("Subject")}\n\n${main?main.txt.trim():""}`;
+}
+const letters=t=>(t.replace(/--- Página \d+ ---/g,"").match(/[\p{L}\d]/gu)||[]).length;
+const capText=t=>{t=String(t||"").replace(/\r/g,"").trim();return t.length>TEXT_CAP?t.slice(0,TEXT_CAP)+"\n[…texto recortado: el documento es más largo]":t};
+async function extractLocal(d,f){
+ const ext=extOf(f.name),t=(f.type||"").toLowerCase();
+ if(f.size>250*MB)throw new Error("El archivo pesa más de 250 MB. Recórtalo o conviértelo a un formato más liviano.");
+ if(t.startsWith("image/")||["jpg","jpeg","png","webp","gif","bmp","heic","heif"].includes(ext)){d.kind="imagen";return}
+ if(t.startsWith("audio/")||["mp3","m4a","ogg","opus","wav","flac","aac","wma","amr"].includes(ext)){d.kind="audio";return}
+ if(t.startsWith("video/")||["mp4","mov","webm","mkv","avi","3gp","m4v"].includes(ext)){d.kind="video";return}
+ if(ext==="pdf"||t==="application/pdf"){
+  const r=await pdfText(f);d.pages=r.pages;
+  if(letters(r.text)/Math.max(1,r.pages)<40){d.kind="escaneado";d.text=""}else{d.kind="pdf";d.text=capText(r.text)}
+  return;
+ }
+ d.kind="texto";
+ if(ext==="docx"){await loadScript(LIB.mammoth);const r=await window.mammoth.extractRawText({arrayBuffer:await f.arrayBuffer()});d.text=capText(r.value)}
+ else if(["xlsx","xls","ods"].includes(ext)){await loadScript(LIB.xlsx);const wb=window.XLSX.read(new Uint8Array(await f.arrayBuffer()),{type:"array"});d.text=capText(wb.SheetNames.map(n=>`--- Hoja: ${n} ---\n`+window.XLSX.utils.sheet_to_csv(wb.Sheets[n])).join("\n\n"))}
+ else if(ext==="eml"||t==="message/rfc822"){d.text=capText(parseEml(await f.text()))}
+ else if(["html","htm"].includes(ext)){d.text=capText(htmlText(await f.text()))}
+ else if(["txt","md","csv","json","xml"].includes(ext)||t.startsWith("text/")){d.text=capText(await f.text())}
+ else if(ext==="doc")throw new Error("Es un Word antiguo (.doc). Ábrelo en Word y guárdalo como .docx o PDF.");
+ else if(ext==="msg")throw new Error("Es un correo de Outlook (.msg). Guárdalo como PDF o reenvíalo y descárgalo como .eml.");
+ else throw new Error("Formato no compatible. Conviértelo a PDF, imagen o texto.");
+ if(!d.text.trim())throw new Error("No se encontró texto en el archivo.");
+}
+function guessLabel(d){
+ const n=d.name.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
+ const R=[[/citaci/,"Citación"],[/notifica/,"Notificación"],[/resoluc/,"Resolución o acto administrativo"],[/demanda|sentencia|providencia|fallo|tutela/,"Demanda o providencia judicial"],[/contrato/,"Contrato"],[/liquidac|desprendible|nomina|recibo|comprobante|pago/,"Liquidación o soporte de pago"],[/certific/,"Certificado"],[/whatsapp|chat/,"Chat o mensajes"],[/carta|oficio|derecho de peticion|peticion/,"Carta o comunicación"]];
+ for(const [re,l] of R)if(re.test(n))return l;
+ if(extOf(d.name)==="eml")return "Correo electrónico";
+ return {audio:"Audio",video:"Video",imagen:"Foto o captura"}[d.kind]||"";
+}
+function newDoc(o){return Object.assign({id:newId(),name:"Documento",size:0,kind:"texto",label:"",note:"",text:"",analysis:"",alert:"",consent:false,aBase:"",pages:0,error:""},o)}
+async function addFiles(list){
+ const files=[...(list||[])];if(!files.length)return;
+ const room=MAX_DOCS-state.docs.length;
+ if(room<=0){toast(`Máximo ${MAX_DOCS} documentos por caso.`);return}
+ if(files.length>room)toast(`Solo se agregaron ${room} archivo(s): el máximo es ${MAX_DOCS} por caso.`);
+ const added=files.slice(0,room).map(f=>{const d=newDoc({name:f.name,size:f.size,processing:true});FILES[d.id]=f;state.docs.push(d);return {d,f}});
+ render();
+ for(const {d,f} of added){
+  try{await extractLocal(d,f)}catch(e){d.error=(e&&e.message)||"No se pudo leer el archivo."}
+  d.processing=false;if(!d.label)d.label=guessLabel(d);markDirty();if(state.step===P.DOCS)render();
+ }
+}
+function addNote(){
+ if(state.docs.length>=MAX_DOCS){toast(`Máximo ${MAX_DOCS} documentos por caso.`);return}
+ const k=state.docs.filter(d=>d.kind==="nota").length+1;
+ const d=newDoc({name:`Texto pegado ${k}`,kind:"nota"});state.docs.push(d);state.open["t_"+d.id]=true;markDirty();render();
+ const t=document.querySelector(`[data-dtext="${d.id}"]`);if(t){t.focus();t.scrollIntoView({block:"center",behavior:"smooth"})}
+}
+const needsConsent=d=>d.kind==="imagen"||d.kind==="escaneado"||((d.kind==="audio"||d.kind==="video")&&!d.text);
+const needsFile=d=>!FILES[d.id]&&needsConsent(d);
+const docStale=d=>!!(d.analysis&&d.aBase&&d.aBase!==hash(d.text||d.name));
+const pendingDoc=d=>!d.processing&&(!d.analysis||docStale(d))&&!(needsConsent(d)&&!d.consent)&&!needsFile(d)&&!(d.kind==="nota"&&!d.text.trim())&&!(d.error&&!d.analysis&&!d.text&&!FILES[d.id]);
+const docAlerts=()=>state.docs.filter(d=>d.alert==="SÍ"||d.alert==="POSIBLE");
+const evHash=()=>hash(state.docs.map(d=>d.id+d.analysis).join("|"));
+function docStatus(d){
+ if(d.processing)return{t:"Procesando…",c:"",spin:1};
+ if(d.error&&!d.analysis)return{t:"Con error",c:"bad"};
+ if(docStale(d))return{t:"Análisis desactualizado",c:"warn"};
+ if(d.analysis)return{t:"Analizado",c:"ok"};
+ if(d.kind==="nota"&&!d.text.trim())return{t:"Sin texto",c:"warn"};
+ if(needsFile(d))return{t:"Vuelve a subirlo",c:"warn"};
+ if(needsConsent(d)&&!d.consent)return{t:"Requiere autorización",c:"warn"};
+ return{t:"Listo para analizar",c:""};
+}
+
+/* ---------- Validación ---------- */
+function validate(step){
+ const e={};
+ if(step===P.STORY){
+  const n=state.story.trim().length;
+  if(!n)e.story="Escribe el relato del caso.";
+  else if(n<MIN_STORY)e.story=`El relato es muy corto (${n} de ${MIN_STORY} caracteres). Cuenta quién, qué pasó y cuándo.`;
+  if(state.goal.trim().length<8)e.goal="Indica qué quiere conseguir la persona (mínimo 8 caracteres).";
+ }
+ if(step===P.URG){
+  if(!state.urgency)e.urgency="Elige una opción para continuar.";
+  if(state.urgency==="Sí"&&state.urgencyDetails.trim().length<10)e.urgencyDetails="Describe qué ocurre y para cuándo.";
+ }
+ if(step===P.AREA&&!state.area.trim())e.area="Elige un área o escribe una. Si no estás seguro, usa “Aún no lo sé”.";
+ if(step===P.ANA&&!state.analysis.trim())e.analysis="Genera el análisis (con IA o el borrador sin IA) para poder continuar.";
+ return e;
+}
+const answered=()=>state.questions.filter((_,i)=>(state.answers[i]||"").trim()).length;
+/* Avisos que dejan continuar si el usuario confirma */
+function softOk(){
+ const s=state.step;
+ if(s===P.DOCS){
+  if(state.docs.some(d=>d.processing))return confirm("Todavía se están leyendo algunos archivos. ¿Continuar de todas formas?");
+  const f=state.docs.filter(d=>!d.analysis).length;
+  if(f)return confirm(`Hay ${f} documento(s) sin analizar. Los que tienen texto entrarán al caso solo como extracto; los demás no entrarán. ¿Continuar?`);
+ }
+ if(s===P.STORY&&state.redact&&!nameList().length)return confirm("No registraste nombres de personas o empresas. Si el relato los menciona, se enviarán tal cual a la IA. ¿Continuar de todas formas?");
+ if(s===P.Q){
+  if(!state.questions.length)return confirm("No generaste preguntas, así que el análisis se hará solo con el relato y los documentos. ¿Continuar?");
+  const f=state.questions.length-answered();
+  if(f>0)return confirm(`Dejaste ${f} pregunta(s) sin responder. ¿Continuar de todas formas?`);
+ }
+ if(s===P.RUT&&!state.routes.trim())return confirm("Aún no hay rutas de actuación. Los informes saldrán sin ellas. ¿Continuar?");
+ return true;
+}
+function clearErr(key){if(!state.errors[key])return;delete state.errors[key];const el=$(key);if(el)el.classList.remove("invalid");const er=$("err-"+key);if(er)er.remove()}
+function focusFirstError(){
+ const el=document.querySelector(".invalid")||document.querySelector(".err");
+ if(el){el.scrollIntoView({block:"center",behavior:"smooth"});if(el.focus&&/INPUT|TEXTAREA/.test(el.tagName))el.focus({preventScroll:true})}
+}
+
+/* ---------- Componentes ---------- */
+const errMsg=id=>state.errors[id]?`<div class="err" id="err-${id}" role="alert">${ic("warn")}<span>${esc(state.errors[id])}</span></div>`:"";
+const reqMark=req=>req?` <span class="req" aria-hidden="true">*</span>`:"";
+function field(label,id,value,placeholder="",type="text",hint="",req=false){const bad=state.errors[id];return `<label for="${id}">${label}${reqMark(req)}</label><input id="${id}" type="${type}" value="${esc(value)}" placeholder="${esc(placeholder)}" autocomplete="off"${req?' aria-required="true"':""}${bad?` class="invalid" aria-invalid="true" aria-describedby="err-${id}"`:""}>${hint?`<div class="hint">${hint}</div>`:""}${errMsg(id)}`}
+function area(label,id,value,placeholder="",hint="",req=false,minH=0){const bad=state.errors[id];return `<label for="${id}">${label}${reqMark(req)}</label><textarea id="${id}" placeholder="${esc(placeholder)}"${minH?` style="min-height:${minH}px"`:""}${req?' aria-required="true"':""}${bad?` class="invalid" aria-invalid="true" aria-describedby="err-${id}"`:""}>${esc(value)}</textarea>${hint?`<div class="hint">${hint}</div>`:""}${errMsg(id)}`}
+function notice(kind,icon,html){return `<div class="notice ${kind}">${ic(icon)}<div>${html}</div></div>`}
+const sec=(n,title,body,desc="")=>`<section class="sec"><div class="sechead">${title}</div>${desc?`<p class="secdesc">${desc}</p>`:""}${body}</section>`;
+function bindVal(id,key,after){const el=$(id);if(el)el.addEventListener("input",()=>{state[key]=el.value;clearErr(key);markDirty();after&&after()})}
+/* La acción principal del paso (generar) es "primary" solo mientras falta; después pasa a "secondary" y "Continuar" toma el protagonismo. */
+const needsAction=()=>({[P.DOCS]:state.docs.some(pendingDoc),[P.Q]:!state.questions.length,[P.ANA]:!state.analysis.trim(),[P.RUT]:!state.routes.trim(),[P.REP]:!(state.citizenReport.trim()||state.technicalReport.trim())})[state.step]||false;
+function busyBtn(id,label,busyLabel){return `<button class="btn ${needsAction()?"primary":"secondary"}" id="${id}" ${state.loading?"disabled":""}>${state.loading?`<span class="spin"></span>${busyLabel}`:ic("spark")+label}</button>`}
+/* Texto con formato; "Editar" cambia a un cuadro de texto. Se guarda siempre el Markdown crudo. */
+function docView(key,placeholder,minH=200){
+ const v=state[key]||"";
+ if(!v.trim()||state.editing[key])return `<textarea id="doc_${key}" data-doc="${key}" placeholder="${esc(placeholder)}" style="min-height:${minH}px;margin-top:12px">${esc(v)}</textarea>${v.trim()?`<div class="docedit"><button class="btn secondary small" data-docdone="${key}">${ic("check")}Listo, ver con formato</button></div>`:""}`;
+ return `<div class="report md" tabindex="0" id="doc_${key}">${md(v)}</div><div class="docedit"><button class="btn quiet small" data-docedit="${key}">${ic("quill")}Editar texto</button></div>`;
+}
+function ctxBar(){
+ if(state.step<P.STORY)return "";
+ const nd=state.docs.length;
+ const it=[state.caseCode&&`Caso <b>${esc(state.caseCode)}</b>`,nd&&`Documentos <b>${state.docs.filter(d=>d.analysis).length}/${nd} analizados</b>`,state.area&&`Área <b>${esc(state.area)}</b>`,state.urgency&&`Urgencia <b>${esc(state.urgency)}</b>`].filter(Boolean);
+ return it.length?`<div class="ctxbar">${it.map(x=>`<span>${x}</span>`).join("")}</div>`:"";
+}
+function statusBars(){
+ let h="";
+ if(state.loading)h+=`<div class="notice loading" role="status"><span class="spin"></span><div><b>La IA está trabajando…</b> <span id="busyMsg">${esc(state.busyMsg||"Puede tardar hasta un minuto. No cierres la pestaña.")}</span></div><button class="btn quiet small" id="cancelAI">Cancelar</button></div>`;
+ if(state.aiError)h+=notice("red","warn",`${esc(state.aiError)}${!state.apiKey.trim()?` <button class="btn secondary small" id="goKey" style="margin-left:8px">Ir a configurar la clave</button>`:""}`);
+ return h;
+}
+function setBusy(msg){state.busyMsg=msg;const el=$("busyMsg");if(el)el.textContent=msg}
+
+function docCard(d){
+ const K=KIND[d.kind]||KIND.texto,st=docStatus(d);
+ const av=d.kind==="audio"||d.kind==="video";
+ const showConsent=needsConsent(d)||(d.kind==="video"&&FILES[d.id]);
+ const consentTxt=d.kind==="audio"?"Autorizo enviar el audio original a OpenAI para transcribirlo. La voz no se puede anonimizar.":d.kind==="video"?"Autorizo enviar el audio y algunos fotogramas del video a OpenAI. No se pueden anonimizar.":d.kind==="escaneado"?"Autorizo enviar las páginas escaneadas a OpenAI como imágenes. No se pueden anonimizar.":"Autorizo enviar la imagen original a OpenAI. No se puede anonimizar.";
+ const dis=state.loading||d.processing?"disabled":"";
+ const tOpen=state.open["t_"+d.id]||(d.kind==="nota"&&!d.text.trim());
+ return `<div class="doc">
+ <div class="dochead"><div class="docicon">${ic(K.icon)}</div><div class="docmeta"><b title="${esc(d.name)}">${esc(d.name)}</b><small>${K.label}${d.pages?` · ${d.pages} pág.`:""}${d.size?` · ${fmtSize(d.size)}`:""}${d.text?` · ${d.text.length.toLocaleString("es-CO")} caracteres`:""}</small></div><span class="badge ${st.c}">${st.spin?'<span class="spin"></span>':""}${st.t}</span></div>
+ ${d.alert==="SÍ"?notice("red","hourglass","<b>Menciona plazos, audiencias o fechas límite.</b> Revisa el análisis y avisa hoy a tu docente asesor."):d.alert==="POSIBLE"?notice("warn","hourglass","<b>Podría haber un plazo corriendo.</b> Verifícalo con el documento original."):""}
+ <div class="grid2"><div><label for="dl_${d.id}">Tipo de documento</label><select id="dl_${d.id}" data-dlabel="${d.id}"><option value="">Sin indicar</option>${DOC_TYPES.map(t=>`<option ${d.label===t?"selected":""}>${t}</option>`).join("")}</select></div><div><label for="dn_${d.id}">¿Qué es o qué prueba? (opcional)</label><input type="text" id="dn_${d.id}" data-dnote="${d.id}" value="${esc(d.note)}" placeholder="Ej. citación a descargos de octubre" autocomplete="off"></div></div>
+ ${showConsent?`<label class="consent"><input type="checkbox" data-dconsent="${d.id}" ${d.consent?"checked":""} ${dis}><span>${consentTxt}</span></label>`:""}
+ ${needsFile(d)?`<div class="hint">El original no está en esta sesión (los archivos no se guardan). Quita este elemento y vuelve a subir el archivo para analizarlo.</div>`:""}
+ ${d.kind==="escaneado"&&d.pages>8?`<div class="hint">PDF escaneado de ${d.pages} páginas: solo se analizarán las primeras 8. Si las demás importan, divídelo y sube las partes.</div>`:""}
+ ${d.error?`<div class="err">${ic("warn")}<span>${esc(d.error)}</span></div>`:""}
+ ${docStale(d)?`<div class="hint">Corregiste el texto después del análisis. Vuelve a analizarlo para actualizarlo.</div>`:""}
+ <div class="row docbtns"><button class="btn ${d.analysis&&!docStale(d)?"quiet":"secondary"} small" data-danalyze="${d.id}" ${dis}>${ic("spark")}${d.analysis?"Volver a analizar":av&&!d.text?"Transcribir y analizar":"Analizar"}</button><button class="btn danger small" data-dremove="${d.id}" ${dis}>${ic("trash")}Quitar</button></div>
+ ${d.text||d.kind==="nota"?`<details class="dd" data-dopen="t_${d.id}" ${tOpen?"open":""}><summary>${av?"Ver y corregir la transcripción":d.kind==="nota"?"Texto pegado":"Ver y corregir el texto extraído"}</summary><textarea data-dtext="${d.id}" placeholder="Pega aquí el texto del correo, chat o mensaje">${esc(d.text)}</textarea>${d.text.trim()?`<div class="row" style="margin-top:8px"><button class="btn quiet small" data-dprev="${d.id}">${ic("shield")}${state.prev[d.id]?"Ocultar":"Ver"} lo que recibirá la IA</button></div>${state.prev[d.id]?`<div class="callout"><div class="preview">${esc(anon(d.text).slice(0,20000))}</div></div>`:""}`:""}</details>`:""}
+ ${d.analysis?`<details class="dd" data-dopen="a_${d.id}" ${state.open["a_"+d.id]?"open":""}><summary>Análisis de la IA</summary><div class="report md">${md(d.analysis)}</div></details>`:""}
+ </div>`;
+}
+
+function buildNav(){
+ $("stepNav").innerHTML=STEPS.map((s,i)=>{const ok=i!==state.step&&i<=state.maxStep;return `<button type="button" class="stepnav ${i===state.step?"active":i<state.step?"done":""}" data-step="${i}" data-go="${ok?1:0}" ${i===state.step?'aria-current="step"':""} ${ok?"":'aria-disabled="true" tabindex="-1"'}><span class="num">${i<state.step?ic("check"):ic(s.i)}</span><span>${s.n}</span></button>`}).join("");
+ $("stepNav").querySelectorAll("[data-step]").forEach(el=>el.onclick=()=>{if(el.dataset.go==="1"&&!state.loading)goTo(+el.dataset.step,{quiet:true})});
+}
+function goTo(n,{quiet=false}={}){
+ state.errors={};state.aiError="";state.step=n;state.maxStep=Math.max(state.maxStep,n);
+ if(!quiet)strike();
+ autosave();render();
+ document.querySelector(".maincard").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+/* ---------- Pantallas ---------- */
+function screen(){
+ switch(state.step){
+ case P.CFG: return `<p class="sub">Este paso es opcional: sin clave puedes recorrer todo el flujo y crear un borrador sin IA.</p>
+ ${sec(1,"Conexión con la IA",`<label for="apiKey">API key de OpenAI</label><div class="keyrow"><input id="apiKey" type="password" autocomplete="off" placeholder="Pega aquí tu clave de API"><button class="btn secondary" id="toggleKey">${ic("eye")}Mostrar</button></div>
+ <div class="hint">La clave permanece solo en la memoria de esta pestaña y se borra al recargar la página.</div>
+ <div class="grid2"><div>${field("Modelo de análisis","model",state.model,"gpt-4o-mini","text","Debe aceptar imágenes para leer fotos y escaneos.")}</div><div>${field("Modelo de transcripción","sttModel",state.sttModel,"gpt-4o-mini-transcribe","text","Para audios y videos. Si da error, prueba con whisper-1.")}</div></div>`)}
+ ${sec(2,"Privacidad",`<label class="switch"><input type="checkbox" id="redact" ${state.redact?"checked":""}><div><b>Anonimizar automáticamente antes de enviar a la IA (recomendado)</b><span>Reemplaza los nombres que registres en el caso, y también cédulas, NIT, teléfonos, correos y direcciones, por marcadores como [PERSONA 1] o [DOCUMENTO]. En los resultados, los nombres se restauran solo en tu pantalla.</span></div></label>
+ ${!state.redact?notice("red","warn","La anonimización está desactivada. Los datos se enviarán tal como los escribas."):""}
+ ${notice("warn","warn",`<b>Cómo viajan los datos:</b> este archivo se conecta directamente con OpenAI desde tu navegador. Lo que envíes sale de Colombia y se procesa en servidores de OpenAI. Usa esta herramienta solo tú, en tu propio equipo; no la publiques ni la compartas con tu clave.`)}`)}
+ <div class="callout"><strong>¿Qué podrás hacer?</strong><br>Analizar los documentos, audios y videos que aporte la persona, generar preguntas adaptativas, preparar un análisis preliminar de derecho colombiano, proponer rutas de actuación y redactar dos informes. Todo resultado es un borrador para tu revisión y la de tu docente asesor.</div>
+ <div class="row" style="margin-top:16px"><button class="btn quiet" id="demoStart">${ic("book")}Probar con un caso de ejemplo</button></div>`;
+ case P.DOCS: {
+  const n=state.docs.length,done=state.docs.filter(d=>d.analysis).length,al=docAlerts();
+  const synStale=state.evidenceSummary.trim()&&state.evidenceBase&&state.evidenceBase!==evHash();
+  return `<p class="sub">Sube lo que haya aportado la persona: citaciones, resoluciones, notificaciones, correos, contratos, desprendibles, fotos, capturas, audios o videos. La IA analizará cada uno, y lo que encuentre se usará en el relato, las preguntas, el análisis y los informes. Este paso es opcional.</p>
+ ${al.length?notice("red","hourglass",`<b>${al.length} documento(s) mencionan plazos, audiencias o fechas límite:</b> ${al.map(d=>esc(d.name)).join(", ")}. Revísalos y avisa hoy a tu docente asesor.`):""}
+ ${sec(1,"Subir archivos",`<label class="drop" id="drop" for="fileInput" tabindex="0">${ic("upload")}<b>Arrastra los archivos aquí o haz clic para elegirlos</b><small>PDF, Word (.docx), Excel, correos (.eml), texto y chats exportados de WhatsApp, imágenes, audios (también notas de voz) y videos</small></label><input type="file" id="fileInput" multiple class="hidden" accept="${ACCEPT}">
+ <div class="row" style="margin-top:10px"><button class="btn quiet small" id="addNote" ${state.loading?"disabled":""}>${ic("paste")}Pegar texto (correo, chat o mensaje)</button></div>
+ <div class="hint">Los archivos originales no se guardan: solo quedan el texto extraído y los análisis. Si cierras la página, para volver a procesar una imagen, un audio o un video tendrás que subirlo de nuevo. Máximo ${MAX_DOCS} documentos por caso.</div>`)}
+ ${sec(2,"Protección de datos",`${field("Nombres de personas o empresas que aparecen en los documentos","names",state.names,"Ej. María Pérez, Juan Gómez, Comercializadora XYZ","text","Sepáralos con comas. Es la misma lista del relato: escríbelos antes de analizar.")}
+ ${state.redact&&!nameList().length&&n?notice("warn","warn","Aún no registras nombres. El texto de los documentos irá a la IA con los nombres reales."):""}
+ ${notice("warn","shield",`<b>Qué se anonimiza:</b> el texto de PDF, Word, Excel, correos y chats pasa por la anonimización${state.redact?"":" (ahora está desactivada)"}. Las <b>imágenes, PDF escaneados, audios y videos</b> no se pueden anonimizar: el original se envía a OpenAI solo si marcas la autorización en ese archivo. Las transcripciones que regresan sí se anonimizan en los pasos siguientes.`)}`)}
+ ${sec(3,`Documentos del caso${n?` (${n})`:""}`,n?`<p class="secdesc"><b>${done}</b> de ${n} analizados</p>${state.docs.map(docCard).join("")}<div class="row" style="margin-top:16px;justify-content:flex-end">${busyBtn("analyzeAll",done?"Analizar los pendientes":"Analizar todos con IA","Analizando documentos…")}</div>`:`<div class="empty"><p>Aún no hay documentos. Si la persona no aportó ninguno, puedes continuar.</p></div>`)}
+ ${done?sec(4,"Síntesis probatoria",`${synStale?notice("warn","warn","Hay documentos nuevos o modificados desde la última síntesis."):""}<div class="row" style="margin-top:12px"><button class="btn secondary" id="makeSynth" ${state.loading?"disabled":""}>${ic("spark")}${state.evidenceSummary.trim()?"Actualizar la síntesis":"Generar síntesis de todos los documentos"}</button></div>${docView("evidenceSummary","La síntesis aparecerá aquí: cronología, hechos respaldados, contradicciones, plazos y documentos faltantes.",160)}`,"Cruza todos los análisis: cronología, hechos respaldados, contradicciones, plazos y documentos que faltan."):""}`;
+ }
+ case P.STORY: return `<p class="sub">Escribe el relato tal como lo contó la persona. No necesitas términos jurídicos.</p>
+ <p class="legend"><span class="req">*</span> Campo obligatorio</p>
+ ${sec(1,"Identificación del caso",`<div class="grid2"><div>${field("Código interno (opcional)","caseCode",state.caseCode,"Ej. CJ-2026-014")}</div><div>${field("Fecha aproximada de los hechos","date",state.date,"Ej. agosto de 2026")}</div></div>`)}
+ ${sec(2,"Relato y objetivo",`${state.docs.some(d=>d.analysis)?`<div class="row" style="margin-top:12px"><button class="btn secondary small" id="storyFromDocs" ${state.loading?"disabled":""}>${ic("spark")}Proponer un borrador del relato a partir de los documentos</button></div>`:""}
+ ${area("Relato del caso","story",state.story,"Ejemplo: la persona trabajó dos años en una empresa y le terminaron el contrato. No sabe si le pagaron todo lo que le corresponde…",`Cuenta quién, qué pasó y cuándo. <b id="storyCount"></b>`,true,170)}
+ ${field("¿Qué quiere conseguir la persona?","goal",state.goal,"Ej. saber si le deben dinero y cómo reclamarlo","text","",true)}`)}
+ ${sec(3,"Protección de datos",`${field("Nombres de personas o empresas que aparecen en el relato","names",state.names,"Ej. María Pérez, Juan Gómez, Comercializadora XYZ","text",`Sepáralos con comas. ${state.redact?"Se reemplazarán por [PERSONA 1], [PERSONA 2]… antes de enviarse a la IA.":"La anonimización está desactivada en el paso 1."}`)}
+ <div class="row" style="margin-top:14px"><button class="btn secondary small" id="togglePreview">${ic("shield")}${state.showPreview?"Ocultar vista previa":"Ver lo que recibirá la IA"}</button></div>
+ <div class="callout ${state.showPreview?"":"hidden"}" id="previewBox"><strong>Así verá la IA el relato:</strong><div class="preview" id="preview">${esc(anon(state.story)||"(sin relato)")}</div><div class="hint">Revisa que no quede ningún dato identificable. Si ves alguno, agrégalo a la lista de nombres o reescríbelo.</div></div>`)}
+ ${notice("","info","El análisis distinguirá lo que la persona afirma de lo que está respaldado por documentos. Nada de lo que produzca la herramienta equivale a un concepto jurídico.")}`;
+ case P.URG: {const al=docAlerts();return `<p class="sub">Antes de profundizar, revisemos si hay algo que no pueda esperar.</p>
+ <p class="legend"><span class="req">*</span> Campo obligatorio</p>
+ ${state.urgency==="Sí"?notice("red","hourglass","<b>Posible término corriendo.</b> Informa hoy mismo a tu docente asesor. No esperes a terminar este recorrido."):""}
+ ${al.length?notice("red","clip",`<b>Según los documentos analizados, puede haber plazos corriendo:</b> ${al.map(d=>esc(d.name)).join(", ")}. Revisa sus análisis en el paso ${P.DOCS+1}.`):""}
+ ${sec(1,"Plazos y fechas límite",`<label id="urgLabel">¿Hay una audiencia, notificación o fecha límite próxima?${reqMark(true)}</label><div class="chips" id="urgencyGroup" role="group" aria-labelledby="urgLabel">${["Sí","No","No estoy seguro"].map(o=>`<button type="button" class="chip ${state.urgency===o?"sel":""}" aria-pressed="${state.urgency===o}" data-value="${esc(o)}">${esc(o)}</button>`).join("")}</div>${errMsg("urgency")}
+ ${area(state.urgency==="Sí"?"¿Qué ocurre y para cuándo?":"¿Qué ocurre y para cuándo? (si aplica)","urgencyDetails",state.urgencyDetails,"Ej. recibió una notificación hace pocos días y no conoce el plazo.","",state.urgency==="Sí",100)}`)}
+ ${notice("warn","warn","Si hay peligro inmediato para una persona, se debe acudir a los servicios de emergencia o a la autoridad competente.")}`}
+ case P.Q: return `<p class="sub">La IA propone preguntas según el relato y los documentos para completar los hechos. Puedes responder lo que sepas y dejar el resto.</p>
+ ${state.questions.length?`${sec(1,"Entrevista",`<p class="secdesc" id="qProgress"><b>${answered()}</b> de ${state.questions.length} respondidas</p>
+ ${state.questions.map((q,i)=>`<div class="qa"><label for="answer${i}"><span class="qn">${i+1}</span><span>${esc(q)}</span></label><textarea id="answer${i}" data-answer="${i}" placeholder="Escribe la respuesta o indica que no se sabe">${esc(state.answers[i]||"")}</textarea><div class="chips quick">${["Sí","No","No sé","No aplica"].map(a=>`<button type="button" class="chip" data-quick="${i}" data-val="${a}">${a}</button>`).join("")}</div></div>`).join("")}`)}
+ <div class="row" style="margin-top:18px;justify-content:flex-end">${busyBtn("askQuestions","Generar nuevas preguntas","Pensando las preguntas…")}</div>`
+ :`<div class="empty"><p><strong style="color:var(--green)">Aún no hay preguntas.</strong><br>La IA leerá el relato y los documentos y hará una entrevista adaptativa. También puedes continuar sin ella.</p>${busyBtn("askQuestions","Generar preguntas con IA","Pensando las preguntas…")}</div>`}`;
+ case P.AREA: return `<p class="sub">La clasificación es preliminar. Un caso puede involucrar varias áreas, y la competencia debe verificarse.</p>
+ <p class="legend"><span class="req">*</span> Campo obligatorio</p>
+ ${sec(1,"Especialidad",`${field("Especialidad identificada o sospechada","area",state.area,"Elige una opción o escribe otra","text","",true)}
+ <div class="chips" id="areaChips" style="margin-top:12px" role="group" aria-label="Áreas sugeridas">${AREAS.map(a=>`<button type="button" class="chip ${state.area===a?"sel":""}" aria-pressed="${state.area===a}" data-area="${a}">${a}</button>`).join("")}</div>`)}
+ ${notice("","info","La selección orienta el análisis, pero no confirma la especialidad correcta ni la competencia del consultorio para asumir el caso.")}`;
+ case P.ANA: return `<p class="sub">Se examinarán hechos, pruebas, vacíos de información, posibles derechos, fuentes por verificar y alternativas.</p>
+ ${sec(1,"Qué se enviará",`<div class="pills"><span class="pill">Área <b>${esc(state.area||"Por determinar")}</b></span><span class="pill">Preguntas respondidas <b>${answered()}/${state.questions.length}</b></span><span class="pill">Documentos analizados <b>${state.docs.filter(d=>d.analysis).length}/${state.docs.length}</b></span><span class="pill">Modelo <b>${esc(state.model||"gpt-4o-mini")}</b></span></div>
+ <div class="callout"><strong>Resumen de entrada${state.redact?" (como lo verá la IA)":""}</strong><div class="preview">${esc((anon(state.story)||"No se ha escrito un relato.").slice(0,1200))}</div></div>`)}
+ ${notice("warn","warn","La IA no consulta bases oficiales. Las normas y sentencias que mencione deben verificarse una por una en fuentes oficiales.")}
+ ${state.analysis.trim()?notice("","check","Ya hay un análisis generado. Puedes continuar o volver a generarlo."):""}
+ ${sec(2,"Generar análisis",`<div class="row" style="margin-top:12px">${busyBtn("runAnalysis",state.analysis.trim()?"Volver a generar con IA":"Ejecutar análisis jurídico con IA","Analizando el caso…")}<button class="btn secondary" id="offlineAnalysis" ${state.loading?"disabled":""}>Crear borrador sin IA</button></div>${errMsg("analysis")}`)}`;
+ case P.RUT: {
+  const stale=state.analysis.trim()&&state.analysisBase&&state.analysisBase!==hash(caseText());
+  return `<p class="sub">Las alternativas parten del análisis. Puedes editarlo antes de pedir las rutas.</p>
+ ${stale?notice("warn","warn",`Cambiaste datos del caso o de los documentos después de generar este análisis. Considera volver a generarlo en el paso ${P.ANA+1}.`):""}
+ ${sec(1,"Análisis preliminar",docView("analysis","Vuelve al paso anterior para generar el análisis, o escribe aquí tus observaciones.",220))}
+ ${sec(2,"Rutas de actuación",`<div class="row" style="margin-top:12px">${busyBtn("makeRoutes",state.routes.trim()?"Volver a proponer rutas":"Proponer rutas de acción","Construyendo rutas…")}</div>${docView("routes","Las opciones aparecerán aquí.",200)}`)}
+ ${notice("","info","La herramienta no presenta escritos, no envía comunicaciones ni inicia trámites. Las decisiones se toman con el docente asesor.")}`}
+ case P.REP: {
+  const key=state.activeReport==="citizen"?"citizenReport":"technicalReport";
+  const has=!!currentReport().trim();
+  const stale=(state.citizenReport.trim()||state.technicalReport.trim())&&state.reportsBase&&state.reportsBase!==hash(caseText()+state.analysis+state.routes);
+  return `<p class="sub">Dos documentos construidos a partir del mismo caso. Revísalos antes de usarlos.</p>
+ ${stale?notice("warn","warn","Los informes no reflejan los últimos cambios del caso. Pulsa “Actualizar informes”."):""}
+ ${sec(1,"Generar",`<div class="row" style="margin-top:12px">${busyBtn("generateReports",needsAction()?"Generar informes":"Actualizar informes","Redactando informes…")}</div>`)}
+ ${sec(2,"Informes",`<div class="resulttabs" role="group" aria-label="Elegir informe"><button class="resulttab ${state.activeReport==="citizen"?"active":""}" aria-pressed="${state.activeReport==="citizen"}" data-report="citizen">${ic("person")}Orientación para la persona</button><button class="resulttab ${state.activeReport==="technical"?"active":""}" aria-pressed="${state.activeReport==="technical"}" data-report="technical">${ic("scale")}Informe jurídico técnico</button></div>
+ ${docView(key,"Aún no se han generado los informes. Pulsa “Generar informes”.",260)}
+ <div class="row" style="margin-top:16px"><button class="btn secondary" id="copyReport" ${has?"":"disabled"}>${ic("copy")}Copiar</button><button class="btn quiet" id="downloadReport" ${has?"":"disabled"}>${ic("download")}Descargar .txt</button><button class="btn quiet" id="downloadAll">${ic("folder")}Descargar expediente completo</button></div>`)}
+ ${notice("warn","warn","Borrador de trabajo, no un concepto jurídico aprobado. Verifica fuentes y términos y valídalo con tu docente asesor antes de entregar cualquier orientación.")}`}
+ }
+}
+
+let lastRendered=-1;
+function render(){
+ buildNav();
+ const pct=(state.step+1)/STEPS.length*100;
+ $("stepLabel").textContent=`PASO ${state.step+1} DE ${STEPS.length} · ${STEPS[state.step].n.toUpperCase()}`;
+ $("percent").textContent=`${Math.round(pct)}% completado`;
+ $("progressBar").style.width=pct+"%";
+ $("hero").classList.toggle("hidden",state.step>0);
+ $("backBtn").disabled=state.step===0||state.loading;
+ $("nextBtn").disabled=state.loading;
+ $("nextBtn").textContent=state.step===P.REP?"Finalizar ✓":"Continuar →";
+ $("nextBtn").className="btn "+(needsAction()?"secondary":"primary");
+ $("saveBtn").classList.toggle("hidden",state.step===0);
+ const st=STEPS[state.step];
+ const stage=$("stage");
+ stage.innerHTML=`<div class="titlerow"><div class="stepicon">${ic(st.i)}</div><h3>${TITLES[state.step]}</h3></div>${ctxBar()}${statusBars()}${screen()}`;
+ if(lastRendered!==state.step){stage.classList.remove("enter");void stage.offsetWidth;stage.classList.add("enter");lastRendered=state.step}
+ bind();setSave();
+}
+
+function bind(){
+ const s=state.step;
+ const cancel=$("cancelAI");if(cancel)cancel.onclick=()=>ctrl&&ctrl.abort();
+ const gk=$("goKey");if(gk)gk.onclick=()=>goTo(P.CFG,{quiet:true});
+ qsa("[data-doc]").forEach(el=>el.addEventListener("input",()=>{state[el.dataset.doc]=el.value;markDirty()}));
+ qsa("[data-docedit]").forEach(b=>b.onclick=()=>{state.editing[b.dataset.docedit]=true;render();const t=$("doc_"+b.dataset.docedit);t&&t.focus()});
+ qsa("[data-docdone]").forEach(b=>b.onclick=()=>{delete state.editing[b.dataset.docdone];render()});
+ if(s===P.CFG){
+  $("apiKey").value=state.apiKey;
+  $("apiKey").oninput=e=>state.apiKey=e.target.value;
+  $("toggleKey").onclick=()=>{const e=$("apiKey");e.type=e.type==="password"?"text":"password";$("toggleKey").innerHTML=ic("eye")+(e.type==="password"?"Mostrar":"Ocultar")};
+  bindVal("model","model");bindVal("sttModel","sttModel");
+  $("redact").onchange=e=>{state.redact=e.target.checked;render()};
+  $("demoStart").onclick=()=>{if(state.loading)return;clearFiles();Object.assign(state,blank(),resetUI(),{caseCode:"EJEMPLO-01",names:"Laura Méndez, Distribuidora El Roble",story:"Laura Méndez trabajó cerca de dos años para Distribuidora El Roble como auxiliar de bodega. Su cédula es 1.112.345.678 y su celular 315 222 3344. Le terminaron el contrato y le entregaron una liquidación sin explicarle cómo se calculó. No sabe si le pagaron vacaciones ni cesantías.",goal:"Saber si le deben dinero y qué puede hacer",date:"Septiembre de 2026",urgency:"No estoy seguro",urgencyDetails:"No se conocen fechas exactas; verificar con documentos.",area:"Laboral"});state.showPreview=true;state.maxStep=Math.max(state.maxStep,P.URG);dirty=false;goTo(P.STORY);toast("Caso de ejemplo cargado. Mira la vista previa anonimizada.")};
+ }
+ if(s===P.DOCS){
+  bindVal("names","names");
+  const D=id=>state.docs.find(x=>x.id===id);
+  const fi=$("fileInput");fi.onchange=e=>{addFiles(e.target.files);e.target.value=""};
+  const dz=$("drop");
+  dz.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();fi.click()}};
+  dz.ondragenter=dz.ondragover=e=>{e.preventDefault();dz.classList.add("over")};
+  dz.ondragleave=()=>dz.classList.remove("over");
+  $("addNote").onclick=addNote;
+  qsa("[data-dlabel]").forEach(el=>el.onchange=()=>{const d=D(el.dataset.dlabel);if(d){d.label=el.value;markDirty()}});
+  qsa("[data-dnote]").forEach(el=>el.oninput=()=>{const d=D(el.dataset.dnote);if(d){d.note=el.value.slice(0,500);markDirty()}});
+  qsa("[data-dtext]").forEach(el=>el.oninput=()=>{const d=D(el.dataset.dtext);if(d){d.text=el.value.slice(0,TEXT_CAP+200);markDirty()}});
+  qsa("[data-dconsent]").forEach(el=>el.onchange=()=>{const d=D(el.dataset.dconsent);if(d){d.consent=el.checked;markDirty();render()}});
+  qsa("[data-danalyze]").forEach(b=>b.onclick=()=>analyzeSingle(b.dataset.danalyze));
+  qsa("[data-dremove]").forEach(b=>b.onclick=()=>{const d=D(b.dataset.dremove);if(!d)return;if((d.analysis||d.text.trim())&&!confirm(`¿Quitar “${d.name}” del caso? Se perderán su texto y su análisis.`))return;delete FILES[d.id];state.docs=state.docs.filter(x=>x.id!==d.id);markDirty();render()});
+  qsa("[data-dprev]").forEach(b=>b.onclick=()=>{state.prev[b.dataset.dprev]=!state.prev[b.dataset.dprev];render()});
+  qsa("[data-dopen]").forEach(el=>el.ontoggle=()=>{state.open[el.dataset.dopen]=el.open});
+  const aa=$("analyzeAll");if(aa)aa.onclick=analyzeAll;
+  const ms=$("makeSynth");if(ms)ms.onclick=makeSynthesis;
+ }
+ if(s===P.STORY){
+  const upd=()=>{const p=$("preview");if(p)p.textContent=anon(state.story)||"(sin relato)"};
+  const cnt=()=>{const n=state.story.trim().length;$("storyCount").textContent=n<MIN_STORY?`${n} / ${MIN_STORY} caracteres mínimos`:`${n} caracteres`};
+  bindVal("caseCode","caseCode");bindVal("date","date");bindVal("goal","goal");
+  bindVal("story","story",()=>{upd();cnt()});bindVal("names","names",upd);
+  cnt();
+  $("togglePreview").onclick=()=>{state.showPreview=!state.showPreview;$("previewBox").classList.toggle("hidden",!state.showPreview);$("togglePreview").innerHTML=ic("shield")+(state.showPreview?"Ocultar vista previa":"Ver lo que recibirá la IA");upd()};
+  const sd=$("storyFromDocs");if(sd)sd.onclick=storyFromDocs;
+ }
+ if(s===P.URG){
+  $("urgencyGroup").querySelectorAll("button").forEach(b=>b.onclick=()=>{state.urgency=b.dataset.value;clearErr("urgency");if(state.urgency!=="Sí")clearErr("urgencyDetails");markDirty();render()});
+  bindVal("urgencyDetails","urgencyDetails");
+ }
+ if(s===P.Q){
+  const prog=()=>{const p=$("qProgress");if(p)p.innerHTML=`<b>${answered()}</b> de ${state.questions.length} respondidas`};
+  qsa("[data-answer]").forEach(el=>el.addEventListener("input",()=>{state.answers[Number(el.dataset.answer)]=el.value;markDirty();prog()}));
+  qsa("[data-quick]").forEach(b=>b.onclick=()=>{const i=Number(b.dataset.quick);state.answers[i]=b.dataset.val;$("answer"+i).value=b.dataset.val;markDirty();prog()});
+  $("askQuestions").onclick=askQuestions;
+ }
+ if(s===P.AREA){
+  const sync=()=>qsa("[data-area]").forEach(x=>{const on=x.dataset.area===state.area;x.classList.toggle("sel",on);x.setAttribute("aria-pressed",on)});
+  bindVal("area","area",sync);
+  qsa("[data-area]").forEach(b=>b.onclick=()=>{state.area=b.dataset.area;$("area").value=state.area;clearErr("area");markDirty();sync()});
+ }
+ if(s===P.ANA){$("runAnalysis").onclick=runAnalysis;$("offlineAnalysis").onclick=offlineAnalysis}
+ if(s===P.RUT){$("makeRoutes").onclick=makeRoutes}
+ if(s===P.REP){
+  qsa("[data-report]").forEach(b=>b.onclick=()=>{state.activeReport=b.dataset.report;render()});
+  $("generateReports").onclick=generateReports;
+  $("copyReport").onclick=copyReport;
+  $("downloadReport").onclick=()=>{const txt=currentReport();if(!txt){toast("No hay informe para descargar.");return}downloadText(txt,(state.activeReport==="citizen"?"orientacion":"informe-tecnico")+fileSuffix()+".txt")};
+  $("downloadAll").onclick=downloadAll;
+ }
+}
+
+/* ---------- IA ---------- */
+let ctrl=null;
+function docsBlock(withSyn=true){
+ if(!state.docs.length)return "No se aportaron documentos.";
+ let out=state.docs.map((d,i)=>{
+  const head=`${i+1}. ${d.name} — ${d.label||KIND[d.kind].label}${d.note?` (${d.note})`:""}${d.alert==="SÍ"||d.alert==="POSIBLE"?` [ALERTA DE PLAZO: ${d.alert}]`:""}`;
+  const body=d.analysis?`Análisis del documento:\n${d.analysis.slice(0,3500)}`:d.text.trim()?`Extracto sin analizar:\n${d.text.slice(0,1500)}`:"Sin contenido procesado.";
+  return head+"\n"+body;
+ }).join("\n\n");
+ if(out.length>45000)out=out.slice(0,45000)+"\n[…recortado por longitud]";
+ if(withSyn&&state.evidenceSummary.trim())out+=`\n\nSíntesis probatoria:\n${state.evidenceSummary.slice(0,8000)}`;
+ return out;
+}
+function caseText(){
+ return `CASO PARA ANÁLISIS${state.caseCode?" ("+state.caseCode+")":""}
+Relato: ${state.story||"No informado"}
+Objetivo de la persona: ${state.goal||"No informado"}
+Fecha aproximada de los hechos: ${state.date||"No informada"}
+Urgencia declarada: ${state.urgency||"No informada"}; detalle: ${state.urgencyDetails||"no informado"}
+Área preliminar: ${state.area||"Por determinar"}
+Preguntas adicionales y respuestas:
+${state.questions.length?state.questions.map((q,i)=>`- ${q}\n  Respuesta: ${state.answers[i]||"Sin respuesta"}`).join("\n"):"No se formularon."}
+Documentos y pruebas aportados (${state.docs.length}):
+${docsBlock()}`;
+}
+async function callAI(instructions,input,signal,images=[]){
+ if(!state.apiKey.trim())throw new Error("Falta la API key. Configúrala en el paso 1, o usa el borrador sin IA.");
+ const pre=`Fecha actual: ${new Date().toLocaleDateString("es-CO",{timeZone:"America/Bogota",year:"numeric",month:"long",day:"numeric"})}. Contexto: herramienta de apoyo para un estudiante de consultorio jurídico en Colombia que trabaja bajo la supervisión de un docente asesor. ${state.redact?"Los datos personales fueron reemplazados por marcadores entre corchetes (por ejemplo [PERSONA 1], [DOCUMENTO], [TELÉFONO]); consérvalos tal cual y no intentes deducir los datos reales. ":""}Responde siempre en español. Da formato en Markdown con títulos (##) y listas.\n\n`;
+ const text=anon(input);
+ const payload=images.length?[{role:"user",content:[{type:"input_text",text},...images.map(u=>({type:"input_image",image_url:u,detail:"high"}))]}]:text;
+ let res;
+ try{res=await fetch(state.endpoint,{method:"POST",signal,headers:{"Content-Type":"application/json","Authorization":"Bearer "+state.apiKey.trim()},body:JSON.stringify({model:(state.model||"gpt-4o-mini").trim(),instructions:pre+instructions,input:payload,max_output_tokens:5000})})}
+ catch(e){if(e.name==="AbortError")throw e;throw new Error("No se pudo conectar con la API. Revisa tu conexión a internet.")}
+ const data=await res.json().catch(()=>({}));
+ if(!res.ok)throw new Error(data.error?.message||`Error de API (${res.status}). Verifica clave, modelo, saldo y permisos.`);
+ const out=(data.output||[]).flatMap(o=>o.content||[]).filter(c=>c.type==="output_text").map(c=>c.text).join("\n").trim();
+ if(!out)throw new Error(data.status==="incomplete"?"La respuesta quedó incompleta por límite de longitud. Intenta de nuevo.":"La API no devolvió texto. Intenta de nuevo.");
+ return deanon(out);
+}
+/* Transcripción: archivos pequeños van directo; los grandes o de formato raro se convierten aquí a WAV de 16 kHz en tramos de 10 minutos. */
+const DIRECT_EXT=["mp3","mp4","mpeg","mpga","m4a","ogg","wav","webm","flac","opus"];
+const sttUrl=()=>state.endpoint.replace(/\/responses\/?$/,"/audio/transcriptions");
+async function sttCall(blob,name,sig){
+ const fd=new FormData();fd.append("file",blob,name);fd.append("model",(state.sttModel||"gpt-4o-mini-transcribe").trim());fd.append("language","es");fd.append("response_format","json");
+ let res;
+ try{res=await fetch(sttUrl(),{method:"POST",signal:sig,headers:{Authorization:"Bearer "+state.apiKey.trim()},body:fd})}
+ catch(e){if(e.name==="AbortError")throw e;throw new Error("No se pudo conectar con la API de transcripción.")}
+ const data=await res.json().catch(()=>({}));
+ if(!res.ok)throw new Error((data.error?.message||`Error de transcripción (${res.status}).`)+" Revisa el modelo de transcripción en el paso 1.");
+ return String(data.text||"").trim();
+}
+function wavBlob(samples,rate){
+ const b=new ArrayBuffer(44+samples.length*2),v=new DataView(b);
+ const w=(o,s)=>{for(let i=0;i<s.length;i++)v.setUint8(o+i,s.charCodeAt(i))};
+ w(0,"RIFF");v.setUint32(4,36+samples.length*2,true);w(8,"WAVE");w(12,"fmt ");v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);v.setUint32(24,rate,true);v.setUint32(28,rate*2,true);v.setUint16(32,2,true);v.setUint16(34,16,true);w(36,"data");v.setUint32(40,samples.length*2,true);
+ for(let i=0,o=44;i<samples.length;i++,o+=2){const s=Math.max(-1,Math.min(1,samples[i]));v.setInt16(o,s<0?s*0x8000:s*0x7fff,true)}
+ return new Blob([b],{type:"audio/wav"});
+}
+async function toWavChunks(f){
+ const AC=window.AudioContext||window.webkitAudioContext;const ac=new AC();let dec;
+ try{dec=await ac.decodeAudioData(await f.arrayBuffer())}finally{ac.close&&ac.close()}
+ const rate=16000,off=new OfflineAudioContext(1,Math.max(1,Math.ceil(dec.duration*rate)),rate);
+ const src=off.createBufferSource();src.buffer=dec;src.connect(off.destination);src.start();
+ const data=(await off.startRendering()).getChannelData(0);
+ const per=rate*600,chunks=[];
+ for(let i=0;i<data.length;i+=per)chunks.push(wavBlob(data.subarray(i,i+per),rate));
+ return chunks;
+}
+async function transcribeFile(f,sig){
+ const ext=extOf(f.name);
+ if(f.size<=24*MB&&DIRECT_EXT.includes(ext)){setBusy(`Transcribiendo ${f.name}…`);return await sttCall(f,ext==="opus"?f.name.replace(/\.opus$/i,".ogg"):f.name,sig)}
+ setBusy(`Extrayendo el audio de ${f.name}…`);
+ let chunks;
+ try{chunks=await toWavChunks(f)}catch{throw new Error("No se pudo extraer el audio de este archivo en el navegador. Conviértelo a MP3 o MP4 y vuelve a subirlo.")}
+ const out=[];
+ for(let i=0;i<chunks.length;i++){setBusy(`Transcribiendo ${f.name} (parte ${i+1} de ${chunks.length})…`);out.push(await sttCall(chunks[i],`parte${i+1}.wav`,sig))}
+ return out.join("\n\n");
+}
+const DOC_PROMPT="Analiza un documento o prueba aportado por la persona que consulta a un consultorio jurídico en Colombia. La PRIMERA línea de tu respuesta debe ser exactamente una de estas: «PLAZO: SÍ», «PLAZO: NO» o «PLAZO: POSIBLE», según el documento mencione términos, fechas límite, audiencias, citaciones o notificaciones que puedan estar corriendo. Después, en Markdown y con un título (##) por sección: Tipo de documento; Fechas relevantes; Quién lo emite y a quién va dirigido; Contenido esencial; Hechos que podría acreditar; Plazos, audiencias o fechas límite que menciona; Valor probatorio preliminar y limitaciones (por ejemplo, copia simple, falta de firma, autenticidad por verificar); Datos a verificar o inconsistencias. Si recibes imágenes, son fotos, escaneos o fotogramas del original: léelas con cuidado y di si algo es ilegible. Si el contenido es una transcripción automática, advierte que puede tener errores. No inventes normas, fechas ni plazos: si el documento no los dice, indícalo. Máximo 450 palabras.";
+function docInput(d,nImg,note){
+ const av=d.kind==="audio"||d.kind==="video";
+ return `DOCUMENTO APORTADO AL CASO
+Archivo: ${d.name}
+Clase: ${KIND[d.kind].label}${d.pages?` (${d.pages} página(s))`:""}
+Tipo indicado por el estudiante: ${d.label||"Sin indicar"}
+Nota del estudiante: ${d.note||"Ninguna"}
+${state.story.trim()?"Contexto del caso (relato): "+state.story.slice(0,1500)+"\n":""}${note?note+"\n":""}${nImg?`Se adjuntan ${nImg} imagen(es) del original${d.kind==="video"?" (fotogramas del video)":""}.\n`:""}
+${d.text.trim()?`${av?"TRANSCRIPCIÓN AUTOMÁTICA":"CONTENIDO"}:\n${d.text.slice(0,60000)}`:"(El contenido está en las imágenes adjuntas.)"}`;
+}
+async function analyzeOne(d,sig){
+ if(!state.apiKey.trim())throw new Error("Falta la API key. Configúrala en el paso 1.");
+ const f=FILES[d.id];let images=[],note="";
+ const NOFILE="El original no está en esta sesión. Quita este elemento y vuelve a subir el archivo.";
+ if(needsConsent(d)&&!d.consent)throw new Error("Marca la autorización para enviar el original a OpenAI.");
+ if(d.kind==="nota"&&!d.text.trim())throw new Error("Pega o escribe el texto antes de analizarlo.");
+ if(d.kind==="imagen"){if(!f)throw new Error(NOFILE);setBusy(`Preparando la imagen ${d.name}…`);images=[await imageData(f)]}
+ if(d.kind==="escaneado"){if(!f)throw new Error(NOFILE);setBusy(`Leyendo las páginas de ${d.name}…`);images=await pdfImages(f,8)}
+ if(d.kind==="audio"||d.kind==="video"){
+  if(!d.text.trim()){
+   if(!f)throw new Error(NOFILE);
+   try{d.text=capText(await transcribeFile(f,sig))||"(La transcripción salió vacía: puede que no haya voz.)";markDirty()}
+   catch(e){if(e.name==="AbortError"||d.kind!=="video")throw e;note="Nota: no se pudo transcribir el audio del video ("+e.message+")."}
+  }
+  if(d.kind==="video"&&f&&d.consent){setBusy(`Tomando fotogramas de ${d.name}…`);images=await videoFrames(f,4).catch(()=>[])}
+  if(d.kind==="video"&&!d.text.trim()&&!images.length)throw new Error(note.replace(/^Nota: /,"")||"No se pudo obtener contenido del video.");
+ }
+ setBusy(`Analizando ${d.name}…`);
+ let out=await callAI(DOC_PROMPT,docInput(d,images.length,note),sig,images);
+ const m=out.match(/^[\s*«"]*PLAZO:\s*(SÍ|SI|NO|POSIBLE)[\s*»".]*(?:\n|$)/i);
+ if(m){const a=m[1].toUpperCase();d.alert=a==="POSIBLE"?"POSIBLE":a==="NO"?"NO":"SÍ";out=out.slice(m[0].length).trim()}else d.alert="";
+ d.analysis=out.slice(0,20000);d.aBase=hash(d.text||d.name);d.error="";
+ markDirty();
+}
+function analyzeSingle(id){
+ const d=state.docs.find(x=>x.id===id);if(!d)return;
+ withBusy(async sig=>{
+  d.processing=true;d.error="";render();
+  try{await analyzeOne(d,sig);state.open["a_"+d.id]=true;toast("Documento analizado.")}
+  catch(e){if(e&&e.name==="AbortError")throw e;d.error=(e&&e.message)||"No se pudo analizar."}
+  finally{d.processing=false}
+ },15*60000);
+}
+const SYN_PROMPT="Con base en los análisis de los documentos aportados a un caso de consultorio jurídico en Colombia, elabora una síntesis probatoria con un título (##) por sección: Cronología según los documentos; Hechos respaldados por documentos; Hechos afirmados sin respaldo o contradicciones entre documentos; Alertas de plazos y términos (lo más urgente primero, indicando de qué documento sale); Documentos o pruebas que faltan o conviene pedir; Observaciones sobre el valor probatorio. No inventes hechos, normas ni plazos. Máximo 700 palabras.";
+async function synth(sig){
+ if(!state.docs.some(d=>d.analysis))throw new Error("Analiza al menos un documento antes de la síntesis.");
+ setBusy("Elaborando la síntesis probatoria…");
+ const out=await callAI(SYN_PROMPT,`${state.story.trim()?"Relato del caso: "+state.story+"\n\n":""}DOCUMENTOS:\n${docsBlock(false)}`,sig);
+ state.evidenceSummary=out;state.evidenceBase=evHash();delete state.editing.evidenceSummary;markDirty();
+}
+function makeSynthesis(){withBusy(async sig=>{await synth(sig);toast("Síntesis probatoria lista.")},5*60000)}
+function analyzeAll(){
+ const list=state.docs.filter(pendingDoc);
+ const blocked=state.docs.filter(d=>!d.analysis&&!d.processing&&!pendingDoc(d)).length;
+ const synNeeded=state.docs.filter(d=>d.analysis).length>=2&&state.evidenceBase!==evHash();
+ if(!list.length){if(synNeeded){makeSynthesis();return}toast(blocked?`No hay documentos listos: ${blocked} requieren autorización, texto o volver a subirse.`:"Todos los documentos ya están analizados.");return}
+ withBusy(async sig=>{
+  if(!state.apiKey.trim())throw new Error("Falta la API key. Configúrala en el paso 1.");
+  let n=0,fails=0;
+  for(const d of list){
+   n++;d.processing=true;d.error="";render();setBusy(`Documento ${n} de ${list.length}: ${d.name}`);
+   try{await analyzeOne(d,sig)}catch(e){if(e&&e.name==="AbortError")throw e;d.error=(e&&e.message)||"No se pudo analizar.";fails++}
+   finally{d.processing=false}
+   render();
+  }
+  if(state.docs.filter(d=>d.analysis).length>=2)await synth(sig);
+  toast(`Análisis terminado: ${list.length-fails} de ${list.length} documento(s).${blocked?` ${blocked} quedaron pendientes de autorización o texto.`:""}`);
+ },30*60000);
+}
+async function withBusy(fn,ms=120000){
+ if(state.loading)return;
+ state.loading=true;state.aiError="";state.errors={};state.editing={};state.busyMsg="";
+ ctrl=new AbortController();let timedOut=false;
+ const timer=setTimeout(()=>{timedOut=true;ctrl.abort()},ms);
+ render();
+ try{return await fn(ctrl.signal)}
+ catch(e){
+  if(e&&e.name==="AbortError"){if(timedOut)state.aiError=`La operación superó el tiempo máximo (${Math.round(ms/60000)} min). Pulsa el botón para intentarlo de nuevo.`;else toast("Operación cancelada.")}
+  else state.aiError=(e&&e.message)||"Error inesperado. Intenta de nuevo.";
+  return false;
+ }finally{clearTimeout(timer);ctrl=null;state.loading=false;state.busyMsg="";render();autosave()}
+}
+
+function storyFromDocs(){
+ let mode="replace";
+ if(state.story.trim()){if(!confirm("Ya hay un relato escrito. Aceptar: agregar el borrador al final del relato. Cancelar: no hacer nada."))return;mode="append"}
+ withBusy(async sig=>{
+  setBusy("Redactando el borrador del relato…");
+  const out=await callAI("Con base en los documentos analizados, redacta un borrador del relato del caso en tercera persona, en orden cronológico y en lenguaje sencillo, en uno a tres párrafos. Esta vez NO uses Markdown: ni títulos, ni viñetas, ni negritas. Marca con «(por confirmar)» lo que no sea claro. No inventes hechos que no aparezcan en los documentos.",`Objetivo de la persona: ${state.goal||"No informado"}\n\n${docsBlock()}`,sig);
+  const clean=out.replace(/^#+\s.*$/gm,"").replace(/\*\*/g,"").replace(/^\s*[-*•]\s+/gm,"").trim();
+  state.story=mode==="append"?state.story.trim()+"\n\nSegún los documentos aportados: "+clean:clean;
+  markDirty();toast("Borrador del relato listo. Revísalo y ajústalo.");
+ });
+}
+function askQuestions(){
+ if(answered()&&!confirm("Ya hay respuestas escritas. Si generas nuevas preguntas, se borrarán. ¿Continuar?"))return;
+ withBusy(async sig=>{
+  const out=await callAI("Actúa como asistente de entrevista para un consultorio jurídico colombiano. No concluyas el caso todavía. Genera entre 5 y 8 preguntas breves, ordenadas por importancia, para aclarar hechos, fechas, documentos, actuaciones previas, objetivo y posibles urgencias o términos. Ten en cuenta los documentos aportados: no preguntes lo que ya consta en ellos y sí pregunta por sus vacíos o contradicciones. No pidas datos personales identificables. No cites normas. Devuelve solo una lista numerada de preguntas, una por línea, sin títulos ni texto adicional.",caseText(),sig);
+  const qs=out.split("\n").map(x=>x.replace(/^\s*(?:[-*•]|\d+[.)])\s*/,"").replace(/\*\*/g,"").trim()).filter(x=>x.length>3);
+  if(!qs.length)throw new Error("No se pudieron leer las preguntas. Intenta de nuevo.");
+  state.questions=qs.slice(0,10);state.answers=[];toast("Preguntas generadas.");
+ });
+}
+function runAnalysis(){
+ withBusy(async sig=>{
+  const out=await callAI("Eres un asistente de investigación jurídica para un consultorio jurídico colombiano. Analiza con prudencia y con esta estructura, usando un título (##) por sección: 1) resumen; 2) hechos afirmados y no verificados, distinguiendo los que están respaldados por los documentos aportados de los que solo afirma la persona; 3) especialidades probables; 4) problemas jurídicos; 5) normas y jurisprudencia que deberían verificarse, sin inventar números de sentencia, artículos ni enlaces (si no estás seguro de una cita, dilo); 6) aplicación preliminar; 7) pruebas disponibles y pruebas faltantes; 8) alternativas y argumentos contrarios; 9) competencia y riesgos; 10) términos y plazos que requieren verificación, incluyendo las alertas que aparezcan en los documentos; 11) preguntas pendientes. Aclara que no consultaste fuentes oficiales y que el análisis requiere revisión humana. No des garantías de resultado.",caseText()+"\n\nProduce el análisis jurídico preliminar para Colombia.",sig);
+  state.analysis=out;state.analysisBase=hash(caseText());state.step=P.RUT;state.maxStep=Math.max(state.maxStep,P.RUT);strike();toast("Análisis listo. Revísalo y ajústalo si hace falta.");
+ });
+}
+function offlineAnalysis(){
+ state.errors={};
+ const docs=state.docs.length?state.docs.map(d=>`- ${d.name} (${d.label||KIND[d.kind].label})${d.analysis?" — analizado":" — sin analizar"}${d.alert==="SÍ"||d.alert==="POSIBLE"?" — **posible plazo**":""}`).join("\n"):"No se aportaron documentos.";
+ state.analysis=`# Borrador sin IA — no es un concepto jurídico\n\n## Relato recibido\n${state.story||"No se registró relato."}\n\n## Objetivo de la persona\n${state.goal||"Pendiente de precisar."}\n\n## Área preliminar\n${state.area||"Por determinar a partir de los hechos."}\n\n## Urgencia\n${state.urgency||"No informada"} — ${state.urgencyDetails||"sin detalle"}\n\n## Documentos aportados\n${docs}\n\n## Información pendiente\n- Precisar fechas y secuencia de los hechos.\n- Revisar los documentos y comunicaciones relevantes.\n- Verificar la competencia del consultorio.\n- Consultar y confirmar normas y jurisprudencia vigentes.\n- Evaluar urgencias y términos con el docente asesor.`;
+ state.analysisBase=hash(caseText());state.step=P.RUT;state.maxStep=Math.max(state.maxStep,P.RUT);strike();autosave();render();
+}
+function makeRoutes(){
+ withBusy(async sig=>{
+  const out=await callAI("Con base en el análisis preliminar, propone rutas de actuación para el caso en Colombia. Usa un título (##) por alternativa. Para cada una indica: objetivo, pasos concretos, documentos a reunir (señala cuáles ya se aportaron y cuáles faltan), entidad o autoridad que debe verificarse, ventajas, riesgos y datos faltantes. No inventes términos ni afirmes fuentes no consultadas. Ordena por urgencia y prudencia. Aclara que requiere validación del docente asesor.",caseText()+`\n\nAnálisis preliminar:\n${state.analysis||"No disponible"}`,sig);
+  state.routes=out;toast("Rutas propuestas.");
+ });
+}
+function generateReports(){
+ withBusy(async sig=>{
+  const base=caseText()+`\n\nAnálisis preliminar:\n${state.analysis||"No disponible"}\n\nRutas de actuación:\n${state.routes||"No disponibles"}`;
+  const [a,b]=await Promise.allSettled([
+   callAI("Redacta una orientación para la persona que consultó, en español claro, sencillo y empático. Usa un título (##) por sección: qué entendimos; qué muestran los documentos que nos entregó; qué podría significar; opciones posibles; documentos que conviene reunir; pasos sugeridos; qué falta verificar; cuándo buscar ayuda urgente. Distingue hipótesis de hechos comprobados. No inventes normas, enlaces, plazos ni garantías. Indica que es un borrador que será revisado por el consultorio jurídico. Máximo 900 palabras.",base,sig),
+   callAI("Redacta un informe técnico preliminar para el estudiante y el docente asesor de un consultorio jurídico colombiano. Usa un título (##) por sección: identificación del caso (sin datos personales); hechos y cronología; hechos afirmados y pendientes de prueba; problemas jurídicos; marco normativo y jurisprudencial por verificar; análisis de aplicación; argumentos alternativos; competencia; matriz de pruebas (relaciona cada documento aportado con el hecho que acredita y su valor probatorio preliminar); rutas; riesgos y términos pendientes de verificación; vacíos; tareas para el supervisor. No inventes citas ni presentes fuentes como verificadas. Marca el nivel de certeza de cada conclusión. Máximo 1800 palabras.",base,sig)
+  ]);
+  if(a.status==="fulfilled")state.citizenReport=a.value;
+  if(b.status==="fulfilled")state.technicalReport=b.value;
+  if(a.status==="fulfilled"||b.status==="fulfilled")state.reportsBase=hash(caseText()+state.analysis+state.routes);
+  const bad=[a,b].find(r=>r.status==="rejected");
+  if(bad){
+   if(bad.reason&&bad.reason.name==="AbortError")throw bad.reason;
+   if(a.status==="fulfilled"||b.status==="fulfilled")throw new Error("Solo se generó uno de los informes ("+((bad.reason&&bad.reason.message)||"error")+"). Pulsa de nuevo para completar el otro.");
+   throw bad.reason;
+  }
+  state.activeReport="citizen";strike();toast("Informes generados.");
+ });
+}
+
+/* ---------- Informes ---------- */
+const currentReport=()=>state.activeReport==="citizen"?state.citizenReport:state.technicalReport;
+const fileSuffix=()=>state.caseCode?"-"+state.caseCode.replace(/[^\w-]+/g,"_"):"";
+function copyReport(){
+ const txt=currentReport();if(!txt){toast("No hay informe para copiar.");return}
+ const fallback=()=>{const ta=document.createElement("textarea");ta.value=txt;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");toast("Documento copiado.")}catch{alert("No se pudo copiar. Selecciona el texto manualmente.")}ta.remove()};
+ if(navigator.clipboard?.writeText)navigator.clipboard.writeText(txt).then(()=>toast("Documento copiado."),fallback);else fallback();
+}
+function downloadAll(){
+ const sep="\n\n"+"=".repeat(60)+"\n";
+ const docs=state.docs.length?state.docs.map((d,i)=>`--- ${i+1}. ${d.name} ---\nTipo: ${d.label||KIND[d.kind].label}${d.note?"\nNota: "+d.note:""}${d.alert?"\nAlerta de plazo: "+d.alert:""}\n\nAnálisis:\n${d.analysis||"No analizado"}${d.text.trim()?"\n\nTexto extraído / transcripción:\n"+d.text:""}`).join("\n\n")+(state.evidenceSummary.trim()?"\n\n--- SÍNTESIS PROBATORIA ---\n"+state.evidenceSummary:""):"No se aportaron documentos.";
+ const txt=`CONSULTORIO JURÍDICO DE ÁNGEL RAÚL ROLDÁN\nExpediente de trabajo${state.caseCode?" — "+state.caseCode:""}\nGenerado: ${new Date().toLocaleString("es-CO",{timeZone:"America/Bogota"})}\nBorrador para revisión del docente asesor. No es un concepto jurídico.`
+ +sep+"DATOS DEL CASO\n"+caseText().split("\nDocumentos y pruebas aportados")[0]
+ +sep+"DOCUMENTOS Y PRUEBAS\n"+docs
+ +sep+"ANÁLISIS PRELIMINAR\n"+(state.analysis||"No disponible")
+ +sep+"RUTAS DE ACTUACIÓN\n"+(state.routes||"No disponibles")
+ +sep+"ORIENTACIÓN PARA LA PERSONA\n"+(state.citizenReport||"No generada")
+ +sep+"INFORME JURÍDICO TÉCNICO\n"+(state.technicalReport||"No generado");
+ downloadText(txt,"expediente"+fileSuffix()+".txt");
+}
+
+/* ---------- Navegación general ---------- */
+$("backBtn").onclick=()=>{if(state.step>0&&!state.loading)goTo(state.step-1,{quiet:true})};
+$("nextBtn").onclick=()=>{
+ if(state.loading)return;
+ if(state.step===P.REP){if(hasContent()){saveLocal(true);toast("Caso finalizado y guardado.");openCases()}else toast("Caso de ejemplo finalizado. Los ejemplos no se guardan.");return}
+ const e=validate(state.step);
+ if(Object.keys(e).length){state.errors=e;render();focusFirstError();toast("Revisa los campos marcados.");return}
+ if(!softOk())return;
+ goTo(state.step+1);
+};
+$("saveBtn").onclick=()=>saveLocal(false);
+$("newCase").onclick=()=>{
+ if(state.loading)return;
+ const had=hasContent();
+ if(had)saveLocal(true);
+ clearFiles();
+ Object.assign(state,blank(),resetUI());
+ dirty=false;savedAt="";saveFailed=false;state.maxStep=P.STORY;state.step=P.DOCS;lastRendered=-1;render();
+ toast(had?"Caso anterior guardado. Nuevo caso en blanco.":"Caso nuevo.");
+};
+$("openCases").onclick=openCases;
+$("closeModal").onclick=closeModal;
+$("modal").onclick=e=>{if(e.target.id==="modal")closeModal()};
+$("exportCases").onclick=exportCases;
+$("importCases").onclick=()=>$("importFile").click();
+$("importFile").onchange=e=>{const f=e.target.files[0];if(f)importCases(f);e.target.value=""};
+/* Arrastrar archivos: se aceptan en todo el paso de documentos y nunca abren el archivo en la pestaña. */
+const hasFiles=e=>e.dataTransfer&&[...(e.dataTransfer.types||[])].includes("Files");
+document.addEventListener("dragover",e=>{if(hasFiles(e))e.preventDefault()});
+document.addEventListener("drop",e=>{
+ if(!hasFiles(e))return;e.preventDefault();
+ const dz=$("drop");if(dz)dz.classList.remove("over");
+ if(state.step===P.DOCS&&!state.loading)addFiles(e.dataTransfer.files);
+ else if(state.loading)toast("Espera a que termine la IA para agregar archivos.");
+ else toast(`Para agregar documentos, ve al paso ${P.DOCS+1}: Documentos y pruebas.`);
+});
+document.addEventListener("keydown",e=>{
+ const open=!$("modal").classList.contains("hidden");
+ if(e.key==="Escape"&&open)closeModal();
+ if(e.key==="Tab"&&open){
+  const f=[...$("modal").querySelectorAll("button:not(:disabled)")];if(!f.length)return;
+  const first=f[0],last=f[f.length-1];
+  if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
+  else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
+ }
+});
+render();
+})();
+</script>
+</body>
+</html>
